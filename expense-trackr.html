@@ -1,38 +1,903 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7f8fc"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Expense Trackr"><title>Expense Trackr · Analytics</title>
-<style>
-@media(max-width:760px){.shell{padding:0 14px 32px}.top{padding:17px 0;align-items:flex-start}.brand{gap:10px}.logo{width:40px;height:40px;border-radius:13px}.brand h1{font-size:17px}.brand p{font-size:11px}.pill{font-size:9px;padding:2px 6px}.button{font-size:12px;padding:10px 11px;white-space:nowrap}.button svg{width:15px}.slicer{padding:16px 14px}.section-title{font-size:14px;align-items:flex-start}.section-title small{font-size:11px}.slicer-row{align-items:flex-start;flex-direction:column}.date-controls{width:100%;justify-content:space-between;gap:6px;padding:8px}.date-controls strong{display:none}.date-controls input{width:calc(50% - 21px);padding:8px 5px;font-size:11px}.date-controls label{font-size:11px}.range-status{align-self:flex-end;font-size:10px}.kpis{grid-template-columns:1fr 1fr;gap:10px}.kpi{min-height:127px;padding:15px 13px}.kpi-label{font-size:10px;letter-spacing:.45px}.kpi-icon{right:11px;top:11px;width:30px;height:30px}.kpi-value{font-size:21px;margin:17px 0 6px}.kpi-foot{font-size:10px}.panels{grid-template-columns:1fr;gap:12px}.panel{padding:16px 14px}.panel-head h2{font-size:14px}.panel-head p{font-size:11px}.toggle button{font-size:10px;padding:6px 8px}.donut-area{min-height:190px;gap:16px}.donut{width:132px;height:132px}.donut:after{inset:18px}.donut-center strong{font-size:16px}.legend{min-width:100px;gap:9px}.legend-row{font-size:10px;gap:6px}.legend-row strong{font-size:10px}.timeline-wrap{height:203px}.timeline{height:174px;min-width:560px}.dist-grid{grid-template-columns:1fr;gap:13px;margin-top:17px}.distribution{padding:16px 14px}.ledger-head{padding:15px 14px;align-items:flex-start;flex-direction:column}.ledger-controls{width:100%}.search{width:auto;flex:1;min-width:0}.select{max-width:126px;font-size:10px}.ledger-title h2{font-size:14px}.table-wrap{overflow:visible}table{min-width:0}thead{display:none}tbody tr{display:grid;grid-template-columns:1fr auto;gap:3px 8px;padding:12px 14px;border-top:1px solid var(--line)}td{border:0;padding:0;font-size:11px}td:nth-child(1){grid-column:1;grid-row:1;font-weight:700;color:#56637c}td:nth-child(2){grid-column:1;grid-row:2}td:nth-child(3){grid-column:1;grid-row:3;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}td:nth-child(4){grid-column:2;grid-row:2;justify-self:end}td:nth-child(5){display:none}td:nth-child(6){grid-column:2;grid-row:1 / span 2;align-self:center}.badge{font-size:10px;padding:4px 7px}.amount{font-size:12px!important}.ledger-note{padding:10px 14px}}
-.short-title{display:none}@media(max-width:760px){.section-title{display:block}.section-title small{display:block;padding-left:27px;margin-top:4px}.table-wrap{overflow:visible}table{min-width:0}thead{display:none}tbody tr{display:grid;grid-template-columns:1fr auto;gap:3px 8px;padding:12px 14px;border-top:1px solid var(--line)}td:nth-child(5){display:table-cell;grid-column:1;grid-row:4;color:var(--muted);font-size:10px}}@media(max-width:380px){.long-title{display:none}.short-title{display:inline}.brand h1{font-size:15px}.brand p{white-space:nowrap;max-width:145px;overflow:hidden;text-overflow:ellipsis}.pill{display:none}.top{flex-wrap:wrap}.brand{width:100%}.top>.button{margin-left:auto}.button{padding:9px 9px;font-size:11px}}
-
-</style>
-</head>
-<body><main class="shell">
-<header class="top"><div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M16 13h5M3 9h18M7 3v4"/></svg></div><div><h1><span class="long-title">Expense Analytics &amp; Slicer</span><span class="short-title">Expense Trackr</span> <span class="pill">Interactive</span></h1><p>Live spreadsheet sync · Multi-dimensional breakdown</p></div></div><button class="button" onclick="openAdd()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Add Expense</button></header>
-<section class="card slicer"><div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10m-7 6h4"/><circle cx="8" cy="6" r="2" fill="white"/><circle cx="15" cy="12" r="2" fill="white"/><circle cx="11" cy="18" r="2" fill="white"/></svg>Date Range Slicer <small>(Filter from end to end — all charts and tables update automatically)</small></div><div class="slicer-row"><div class="date-controls"><strong>▦ &nbsp;Select Dates:</strong><label for="fromDate">From</label><input type="date" id="fromDate"><label for="toDate">To</label><input type="date" id="toDate"></div><div class="range-status" id="rangeStatus">▦ &nbsp;Showing all recorded dates</div></div></section>
-<section class="kpis"><article class="card kpi"><div class="kpi-label">Total Expenses</div><span class="kpi-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5.5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><div class="kpi-value" id="totalValue">₹0</div><div class="kpi-foot"><span class="accent" id="periodLabel">Full Period</span> · <span id="countLabel">0 transactions</span></div></article><article class="card kpi"><div class="kpi-label">Avg. per Expense</div><span class="kpi-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 17 6-6 4 3 8-9"/><path d="M15 5h6v6"/></svg></span><div class="kpi-value" id="averageValue">₹0</div><div class="kpi-foot" id="averageFoot">Calculated across 0 items</div></article><article class="card kpi"><div class="kpi-label">Top Spending Category</div><span class="kpi-icon pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg></span><div class="kpi-value" id="topValue">—</div><div class="kpi-foot"><span id="topAmount">₹0</span><span class="accent" style="float:right" id="topShare">0% of total</span></div></article><article class="card kpi"><div class="kpi-label">Primary Payment Mode</div><span class="kpi-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></span><div class="kpi-value" id="paymentValue">—</div><div class="kpi-foot"><span id="paymentAmount">₹0</span><span class="accent" style="float:right;color:var(--orange)!important" id="paymentShare">0% volume</span></div></article></section>
-<section class="panels"><article class="card panel"><div class="panel-head"><div><h2>◷ &nbsp;Category Breakdown</h2><p>Spending share by expense type across selected dates</p></div><div class="toggle"><button class="on" id="donutBtn" onclick="setCategoryView('donut')">Donut</button><button id="rankBtn" onclick="setCategoryView('rank')">Rank List</button></div></div><div class="donut-area" id="categoryView"></div></article><article class="card panel"><div class="panel-head"><div><h2>▥ &nbsp;Daily Spending Timeline</h2><p>Chronological expenditure overview</p></div><span class="badge" id="activeDays">0 active days</span></div><div class="timeline-wrap"><div class="timeline" id="timeline"></div></div><div class="chart-foot"><span id="timelineRange">Selected date range</span><span id="dailyPeak"></span></div></article></section>
-<section class="card distribution"><div class="section-title">▤ &nbsp;Payment Methods &amp; Device Distribution</div><p style="font-size:12px;color:var(--muted);margin:4px 0 0">Breakdown by payment channel and hardware origin</p><div class="dist-grid"><div class="dist-group"><h3>PAYMENT CHANNELS</h3><div id="paymentBreakdown"></div></div><div class="dist-group"><h3>LOGGED DEVICES</h3><div id="deviceBreakdown"></div></div></div></section>
-<section class="card ledger"><div class="ledger-head"><div class="ledger-title"><span class="dist-icon">▤</span><div><h2>Transactions Ledger</h2><p id="ledgerCount">Loading transactions…</p></div></div><div class="ledger-controls"><input class="search" id="search" placeholder="⌕  Search remarks, category…"><select class="select" id="categoryFilter"><option value="">All Categories</option></select><select class="select" id="paymentFilter"><option value="">All Payment Modes</option></select></div></div><div class="table-wrap"><table><thead><tr><th>Date &amp; Time</th><th>Category</th><th>Remarks / Note</th><th>Payment Mode</th><th>Device</th><th style="text-align:right">Amount</th></tr></thead><tbody id="ledgerRows"></tbody></table></div><div class="ledger-note" id="connectionNote">Showing your workbook data. This dashboard is read-only; your existing Shortcut remains your expense-entry path.</div></section>
-</main><div class="toast" id="toast"></div><div class="overlay" id="overlay" onclick="if(event.target===this)closeAdd()"><div class="sheet"><h2>Add an expense</h2><p>Your current iPhone Shortcut stays connected to the same spreadsheet. Use that Shortcut to add expenses; this dashboard only reads and summarizes your entries.</p><button onclick="closeAdd()">Got it</button></div></div>
-<script>
-const PALETTE=['#e52c7a','#5746e9','#36a8a3','#f29a3d','#6b9ad8','#a576db','#78b76c','#ee7469'];
-let expenses=[], categoryMode='donut', dataMin='', dataMax='';
-const money=n=>'₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
-const clean=s=>(s||'').replace(/[\p{Extended_Pictographic}\uFE0F]/gu,'').trim()||'Other';
-function filtered(){const from=document.getElementById('fromDate').value,to=document.getElementById('toDate').value,q=document.getElementById('search').value.trim().toLowerCase(),cat=document.getElementById('categoryFilter').value,pay=document.getElementById('paymentFilter').value;return expenses.filter(x=>(!from||x.isoDate>=from)&&(!to||x.isoDate<=to)&&(!cat||x.category===cat)&&(!pay||x.payment===pay)&&(!q||`${x.category} ${x.remarks} ${x.payment} ${x.device}`.toLowerCase().includes(q))).sort((a,b)=>(b.isoDate+b.time).localeCompare(a.isoDate+a.time))}
-function group(rows,key){const out={};rows.forEach(x=>{const name=x[key]||'Not specified';out[name]=(out[name]||0)+x.amount});return Object.entries(out).sort((a,b)=>b[1]-a[1])}
-function render(){const rows=filtered(),total=rows.reduce((s,x)=>s+x.amount,0),avg=rows.length?total/rows.length:0,cats=group(rows,'category'),pays=group(rows,'payment'),devices=group(rows,'device'),top=cats[0],pay=Object.entries(rows.reduce((o,x)=>(o[x.payment||'Not specified']=(o[x.payment||'Not specified']||0)+1,o),{})).sort((a,b)=>b[1]-a[1])[0],payAmount=pay?pays.find(x=>x[0]===pay[0])?.[1]||0:0;document.getElementById('totalValue').textContent=money(total);document.getElementById('averageValue').textContent=money(avg);document.getElementById('countLabel').textContent=`${rows.length} ${rows.length===1?'transaction':'transactions'}`;document.getElementById('averageFoot').textContent=`Calculated across ${rows.length} ${rows.length===1?'item':'items'}`;document.getElementById('topValue').textContent=top?clean(top[0]):'—';document.getElementById('topAmount').textContent=top?money(top[1]):money(0);document.getElementById('topShare').textContent=top&&total?`${Math.round(top[1]/total*100)}% of total`:'0% of total';document.getElementById('paymentValue').textContent=pay?clean(pay[0]):'—';document.getElementById('paymentAmount').textContent=pay?money(payAmount):money(0);document.getElementById('paymentShare').textContent=pay&&rows.length?`${Math.round(pay[1]/rows.length*100)}% volume`:'0% volume';const from=document.getElementById('fromDate').value,to=document.getElementById('toDate').value;document.getElementById('periodLabel').textContent=(!from||from===dataMin)&&(!to||to===dataMax)?'Full Period':'Selected Range';document.getElementById('ledgerCount').textContent=`Showing ${rows.length} of ${expenses.length} total ${expenses.length===1?'entry':'entries'}`;document.getElementById('rangeStatus').innerHTML=rows.length?`▦ &nbsp;Showing ${rows.length} recorded ${rows.length===1?'date':'entries'}`:'▦ &nbsp;No entries in this range';
- renderCategory(rows,cats,total);renderTimeline(rows);renderDistribution('paymentBreakdown',pays,total,'▣',rows,'payment');renderDistribution('deviceBreakdown',devices,total,'▯',rows,'device');renderLedger(rows);}
-function renderCategory(rows,cats,total){const root=document.getElementById('categoryView');if(!rows.length){root.innerHTML='<div class="empty">No expenses in this date range.</div>';return}if(categoryMode==='donut'){let at=0;const stops=cats.map((c,i)=>{const start=at;at+=c[1]/total*100;return `${PALETTE[i%PALETTE.length]} ${start}% ${at}%`}).join(',');root.innerHTML=`<div class="donut" style="background:conic-gradient(${stops})"><div class="donut-center"><small>TOTAL</small><strong>${money(total)}</strong><em>${cats.length} ${cats.length===1?'category':'categories'}</em></div></div><div class="legend">${cats.map((c,i)=>`<div class="legend-row"><i class="legend-dot" style="background:${PALETTE[i%PALETTE.length]}"></i><button class="legend-cat" onclick="pickCategory('${c[0].replaceAll("'","\\'")}')">${clean(c[0])}</button><strong>${money(c[1])} <small>(${Math.round(c[1]/total*100)}%)</small></strong></div>`).join('')}</div>`}else root.innerHTML=`<div class="rank-list">${cats.map((c,i)=>`<div class="rank-row"><span class="rank-num">${String(i+1).padStart(2,'0')}</span><div><strong>${clean(c[0])}</strong><div class="rank-track"><i style="width:${c[1]/total*100}%;background:${PALETTE[i%PALETTE.length]}"></i></div></div><span class="rank-amount">${money(c[1])}<br><small style="color:var(--muted);font-weight:450">${Math.round(c[1]/total*100)}%</small></span></div>`).join('')}</div>`}
-function setCategoryView(mode){categoryMode=mode;document.getElementById('donutBtn').classList.toggle('on',mode==='donut');document.getElementById('rankBtn').classList.toggle('on',mode==='rank');render()}
-function renderTimeline(rows){const root=document.getElementById('timeline');if(!rows.length){root.innerHTML='<div class="empty">No daily spend to chart.</div>';document.getElementById('activeDays').textContent='0 active days';document.getElementById('dailyPeak').textContent='';return}const from=document.getElementById('fromDate').value||rows[rows.length-1].isoDate,to=document.getElementById('toDate').value||rows[0].isoDate;let start=new Date(from+'T12:00:00'),end=new Date(to+'T12:00:00');if(end<start)[start,end]=[end,start];let count=Math.min(31,Math.max(1,Math.ceil((end-start)/86400000)+1));if(count===31){const today=new Date();if((end-start)/86400000>30)start=new Date(end.getTime()-30*86400000)}const sums={};rows.forEach(x=>sums[x.isoDate]=(sums[x.isoDate]||0)+x.amount);const max=Math.max(...Object.values(sums));const days=Array.from({length:count},(_,i)=>{const d=new Date(start.getTime()+i*86400000),key=d.toISOString().slice(0,10),value=sums[key]||0;return{key,value,label:`${d.getMonth()+1}/${d.getDate()}`}});root.innerHTML=days.map(d=>`<div class="day-col ${d.value?'active':''}" title="${d.label} · ${money(d.value)}"><div class="bar" style="height:${d.value?Math.max(4,d.value/max*92):0}px"></div><span>${d.label}</span></div>`).join('');document.getElementById('activeDays').textContent=`${Object.keys(sums).length} active ${Object.keys(sums).length===1?'day':'days'}`;document.getElementById('timelineRange').textContent=`${days[0].label} – ${days[days.length-1].label}`;const peak=Object.entries(sums).sort((a,b)=>b[1]-a[1])[0];document.getElementById('dailyPeak').textContent=peak?`Peak ${peak[0].slice(5).replace('-','/')} · ${money(peak[1])}`:''}
-function renderDistribution(id,items,total,icon,rows,key){const root=document.getElementById(id);root.innerHTML=items.length?items.map((it,i)=>{const count=rows.filter(x=>x[key]===it[0]).length,share=rows.length?Math.round(count/rows.length*100):0;return `<div class="dist-item"><span class="dist-icon">${icon}</span><div class="dist-info"><strong>${clean(it[0])}</strong><small>${count} ${count===1?'transaction':'transactions'}</small><div class="meter"><i style="width:${share}%"></i></div></div><div class="dist-value"><strong>${money(it[1])}</strong><small>${share}% volume</small></div></div>`}).join(''):'<div class="empty">No data for this range.</div>'}
-function renderLedger(rows){document.getElementById('ledgerRows').innerHTML=rows.length?rows.map(x=>`<tr><td><strong>${x.displayDate}</strong><br><span style="color:var(--muted)">◷ ${x.time}</span></td><td><span class="badge"><i></i>${clean(x.category)}</span></td><td>${escapeHtml(x.remarks||'—')}</td><td><span class="badge">▯ ${clean(x.payment)}</span></td><td>${escapeHtml(x.device||'—')}</td><td class="amount">${money(x.amount)}</td></tr>`).join(''):'<tr><td class="empty" colspan="6">No transactions match these filters.</td></tr>'}
-function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function pickCategory(cat){document.getElementById('categoryFilter').value=cat;render()}function openAdd(){document.getElementById('overlay').classList.add('open')}function closeAdd(){document.getElementById('overlay').classList.remove('open')}
-function localDateValue(date){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`}
-function setData(data,isLive=false){if(!data||!Array.isArray(data.expenses))return;expenses=data.expenses;const dates=expenses.map(x=>x.isoDate).filter(Boolean).sort();dataMin=dates[0]||localDateValue(new Date());dataMax=dates[dates.length-1]||dataMin;document.getElementById('fromDate').value=dataMin;document.getElementById('toDate').value=dataMax;document.getElementById('fromDate').min=dataMin;document.getElementById('fromDate').max=dataMax;document.getElementById('toDate').min=dataMin;document.getElementById('toDate').max=dataMax;const catSel=document.getElementById('categoryFilter'),paySel=document.getElementById('paymentFilter');catSel.innerHTML='<option value="">All Categories</option>'+[...new Set(expenses.map(x=>x.category))].map(x=>`<option value="${escapeHtml(x)}">${escapeHtml(clean(x))}</option>`).join('');paySel.innerHTML='<option value="">All Payment Modes</option>'+[...new Set(expenses.map(x=>x.payment))].map(x=>`<option value="${escapeHtml(x)}">${escapeHtml(clean(x))}</option>`).join('');document.getElementById('connectionNote').textContent=isLive?'Live spreadsheet data · read-only dashboard. Your existing iPhone Shortcut continues to add expenses.':'Loading live spreadsheet data…';render()}
-function refreshData(){if(!window.google?.script?.run)return;google.script.run.withSuccessHandler(data=>setData(data,true)).withFailureHandler(()=>{document.getElementById('connectionNote').textContent='Could not load live spreadsheet data. Your existing Shortcut is unaffected.'}).getDashboardData()}
-['fromDate','toDate','search','categoryFilter','paymentFilter'].forEach(id=>document.getElementById(id).addEventListener(id==='search'?'input':'change',()=>{if(id==='fromDate'||id==='toDate')render()}));setData({expenses});refreshData();
-</script></body></html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#f7f8fc" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Expense Trackr" />
+    <title>Expense Trackr · Analytics</title>
+    <style>
+      @media (max-width: 760px) {
+        .shell {
+          padding: 0 14px 32px;
+        }
+        .top {
+          padding: 17px 0;
+          align-items: flex-start;
+        }
+        .brand {
+          gap: 10px;
+        }
+        .logo {
+          width: 40px;
+          height: 40px;
+          border-radius: 13px;
+        }
+        .brand h1 {
+          font-size: 17px;
+        }
+        .brand p {
+          font-size: 11px;
+        }
+        .pill {
+          font-size: 9px;
+          padding: 2px 6px;
+        }
+        .button {
+          font-size: 12px;
+          padding: 10px 11px;
+          white-space: nowrap;
+        }
+        .button svg {
+          width: 15px;
+        }
+        .slicer {
+          padding: 16px 14px;
+        }
+        .section-title {
+          font-size: 14px;
+          align-items: flex-start;
+        }
+        .section-title small {
+          font-size: 11px;
+        }
+        .slicer-row {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .date-controls {
+          width: 100%;
+          justify-content: space-between;
+          gap: 6px;
+          padding: 8px;
+        }
+        .date-controls strong {
+          display: none;
+        }
+        .date-controls input {
+          width: calc(50% - 21px);
+          padding: 8px 5px;
+          font-size: 11px;
+        }
+        .date-controls label {
+          font-size: 11px;
+        }
+        .range-status {
+          align-self: flex-end;
+          font-size: 10px;
+        }
+        .kpis {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        .kpi {
+          min-height: 127px;
+          padding: 15px 13px;
+        }
+        .kpi-label {
+          font-size: 10px;
+          letter-spacing: 0.45px;
+        }
+        .kpi-icon {
+          right: 11px;
+          top: 11px;
+          width: 30px;
+          height: 30px;
+        }
+        .kpi-value {
+          font-size: 21px;
+          margin: 17px 0 6px;
+        }
+        .kpi-foot {
+          font-size: 10px;
+        }
+        .panels {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .panel {
+          padding: 16px 14px;
+        }
+        .panel-head h2 {
+          font-size: 14px;
+        }
+        .panel-head p {
+          font-size: 11px;
+        }
+        .toggle button {
+          font-size: 10px;
+          padding: 6px 8px;
+        }
+        .donut-area {
+          min-height: 190px;
+          gap: 16px;
+        }
+        .donut {
+          width: 132px;
+          height: 132px;
+        }
+        .donut:after {
+          inset: 18px;
+        }
+        .donut-center strong {
+          font-size: 16px;
+        }
+        .legend {
+          min-width: 100px;
+          gap: 9px;
+        }
+        .legend-row {
+          font-size: 10px;
+          gap: 6px;
+        }
+        .legend-row strong {
+          font-size: 10px;
+        }
+        .timeline-wrap {
+          height: 203px;
+        }
+        .timeline {
+          height: 174px;
+          min-width: 560px;
+        }
+        .dist-grid {
+          grid-template-columns: 1fr;
+          gap: 13px;
+          margin-top: 17px;
+        }
+        .distribution {
+          padding: 16px 14px;
+        }
+        .ledger-head {
+          padding: 15px 14px;
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .ledger-controls {
+          width: 100%;
+        }
+        .search {
+          width: auto;
+          flex: 1;
+          min-width: 0;
+        }
+        .select {
+          max-width: 126px;
+          font-size: 10px;
+        }
+        .ledger-title h2 {
+          font-size: 14px;
+        }
+        .table-wrap {
+          overflow: visible;
+        }
+        table {
+          min-width: 0;
+        }
+        thead {
+          display: none;
+        }
+        tbody tr {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: 3px 8px;
+          padding: 12px 14px;
+          border-top: 1px solid var(--line);
+        }
+        td {
+          border: 0;
+          padding: 0;
+          font-size: 11px;
+        }
+        td:nth-child(1) {
+          grid-column: 1;
+          grid-row: 1;
+          font-weight: 700;
+          color: #56637c;
+        }
+        td:nth-child(2) {
+          grid-column: 1;
+          grid-row: 2;
+        }
+        td:nth-child(3) {
+          grid-column: 1;
+          grid-row: 3;
+          max-width: 220px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        td:nth-child(4) {
+          grid-column: 2;
+          grid-row: 2;
+          justify-self: end;
+        }
+        td:nth-child(5) {
+          display: none;
+        }
+        td:nth-child(6) {
+          grid-column: 2;
+          grid-row: 1 / span 2;
+          align-self: center;
+        }
+        .badge {
+          font-size: 10px;
+          padding: 4px 7px;
+        }
+        .amount {
+          font-size: 12px !important;
+        }
+        .ledger-note {
+          padding: 10px 14px;
+        }
+      }
+      .short-title {
+        display: none;
+      }
+      @media (max-width: 760px) {
+        .section-title {
+          display: block;
+        }
+        .section-title small {
+          display: block;
+          padding-left: 27px;
+          margin-top: 4px;
+        }
+        .table-wrap {
+          overflow: visible;
+        }
+        table {
+          min-width: 0;
+        }
+        thead {
+          display: none;
+        }
+        tbody tr {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: 3px 8px;
+          padding: 12px 14px;
+          border-top: 1px solid var(--line);
+        }
+        td:nth-child(5) {
+          display: table-cell;
+          grid-column: 1;
+          grid-row: 4;
+          color: var(--muted);
+          font-size: 10px;
+        }
+      }
+      @media (max-width: 380px) {
+        .long-title {
+          display: none;
+        }
+        .short-title {
+          display: inline;
+        }
+        .brand h1 {
+          font-size: 15px;
+        }
+        .brand p {
+          white-space: nowrap;
+          max-width: 145px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .pill {
+          display: none;
+        }
+        .top {
+          flex-wrap: wrap;
+        }
+        .brand {
+          width: 100%;
+        }
+        .top > .button {
+          margin-left: auto;
+        }
+        .button {
+          padding: 9px 9px;
+          font-size: 11px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="top">
+        <div class="brand">
+          <div class="logo">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="5" width="18" height="15" rx="2" />
+              <path d="M16 13h5M3 9h18M7 3v4" />
+            </svg>
+          </div>
+          <div>
+            <h1>
+              <span class="long-title">Expense Analytics &amp; Slicer</span
+              ><span class="short-title">Expense Trackr</span>
+              <span class="pill">Interactive</span>
+            </h1>
+            <p>Live spreadsheet sync · Multi-dimensional breakdown</p>
+          </div>
+        </div>
+        <button class="button" onclick="openAdd()">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          >
+            <path d="M12 5v14M5 12h14" /></svg
+          >Add Expense
+        </button>
+      </header>
+      <section class="card slicer">
+        <div class="section-title">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M4 6h16M7 12h10m-7 6h4" />
+            <circle cx="8" cy="6" r="2" fill="white" />
+            <circle cx="15" cy="12" r="2" fill="white" />
+            <circle cx="11" cy="18" r="2" fill="white" /></svg
+          >Date Range Slicer
+          <small
+            >(Filter from end to end — all charts and tables update
+            automatically)</small
+          >
+        </div>
+        <div class="slicer-row">
+          <div class="date-controls">
+            <strong>▦ &nbsp;Select Dates:</strong
+            ><label for="fromDate">From</label
+            ><input type="date" id="fromDate" /><label for="toDate">To</label
+            ><input type="date" id="toDate" />
+          </div>
+          <div class="range-status" id="rangeStatus">
+            ▦ &nbsp;Showing all recorded dates
+          </div>
+        </div>
+      </section>
+      <section class="kpis">
+        <article class="card kpi">
+          <div class="kpi-label">Total Expenses</div>
+          <span class="kpi-icon"
+            ><svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M12 2v20M17 5.5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+              /></svg
+          ></span>
+          <div class="kpi-value" id="totalValue">₹0</div>
+          <div class="kpi-foot">
+            <span class="accent" id="periodLabel">Full Period</span> ·
+            <span id="countLabel">0 transactions</span>
+          </div>
+        </article>
+        <article class="card kpi">
+          <div class="kpi-label">Avg. per Expense</div>
+          <span class="kpi-icon green"
+            ><svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="m3 17 6-6 4 3 8-9" />
+              <path d="M15 5h6v6" /></svg
+          ></span>
+          <div class="kpi-value" id="averageValue">₹0</div>
+          <div class="kpi-foot" id="averageFoot">Calculated across 0 items</div>
+        </article>
+        <article class="card kpi">
+          <div class="kpi-label">Top Spending Category</div>
+          <span class="kpi-icon pink"
+            ><svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M5 8h14l-1 12H6L5 8Z" />
+              <path d="M9 9V6a3 3 0 0 1 6 0v3" /></svg
+          ></span>
+          <div class="kpi-value" id="topValue">—</div>
+          <div class="kpi-foot">
+            <span id="topAmount">₹0</span
+            ><span class="accent" style="float: right" id="topShare"
+              >0% of total</span
+            >
+          </div>
+        </article>
+        <article class="card kpi">
+          <div class="kpi-label">Primary Payment Mode</div>
+          <span class="kpi-icon orange"
+            ><svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="M3 10h18" /></svg
+          ></span>
+          <div class="kpi-value" id="paymentValue">—</div>
+          <div class="kpi-foot">
+            <span id="paymentAmount">₹0</span
+            ><span
+              class="accent"
+              style="float: right; color: var(--orange) !important"
+              id="paymentShare"
+              >0% volume</span
+            >
+          </div>
+        </article>
+      </section>
+      <section class="panels">
+        <article class="card panel">
+          <div class="panel-head">
+            <div>
+              <h2>◷ &nbsp;Category Breakdown</h2>
+              <p>Spending share by expense type across selected dates</p>
+            </div>
+            <div class="toggle">
+              <button
+                class="on"
+                id="donutBtn"
+                onclick="setCategoryView('donut')"
+              >
+                Donut</button
+              ><button id="rankBtn" onclick="setCategoryView('rank')">
+                Rank List
+              </button>
+            </div>
+          </div>
+          <div class="donut-area" id="categoryView"></div>
+        </article>
+        <article class="card panel">
+          <div class="panel-head">
+            <div>
+              <h2>▥ &nbsp;Daily Spending Timeline</h2>
+              <p>Chronological expenditure overview</p>
+            </div>
+            <span class="badge" id="activeDays">0 active days</span>
+          </div>
+          <div class="timeline-wrap">
+            <div class="timeline" id="timeline"></div>
+          </div>
+          <div class="chart-foot">
+            <span id="timelineRange">Selected date range</span
+            ><span id="dailyPeak"></span>
+          </div>
+        </article>
+      </section>
+      <section class="card distribution">
+        <div class="section-title">
+          ▤ &nbsp;Payment Methods &amp; Device Distribution
+        </div>
+        <p style="font-size: 12px; color: var(--muted); margin: 4px 0 0">
+          Breakdown by payment channel and hardware origin
+        </p>
+        <div class="dist-grid">
+          <div class="dist-group">
+            <h3>PAYMENT CHANNELS</h3>
+            <div id="paymentBreakdown"></div>
+          </div>
+          <div class="dist-group">
+            <h3>LOGGED DEVICES</h3>
+            <div id="deviceBreakdown"></div>
+          </div>
+        </div>
+      </section>
+      <section class="card ledger">
+        <div class="ledger-head">
+          <div class="ledger-title">
+            <span class="dist-icon">▤</span>
+            <div>
+              <h2>Transactions Ledger</h2>
+              <p id="ledgerCount">Loading transactions…</p>
+            </div>
+          </div>
+          <div class="ledger-controls">
+            <input
+              class="search"
+              id="search"
+              placeholder="⌕  Search remarks, category…"
+            /><select class="select" id="categoryFilter">
+              <option value="">All Categories</option></select
+            ><select class="select" id="paymentFilter">
+              <option value="">All Payment Modes</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date &amp; Time</th>
+                <th>Category</th>
+                <th>Remarks / Note</th>
+                <th>Payment Mode</th>
+                <th>Device</th>
+                <th style="text-align: right">Amount</th>
+              </tr>
+            </thead>
+            <tbody id="ledgerRows"></tbody>
+          </table>
+        </div>
+        <div class="ledger-note" id="connectionNote">
+          Showing your workbook data. This dashboard is read-only; your existing
+          Shortcut remains your expense-entry path.
+        </div>
+      </section>
+    </main>
+    <div class="toast" id="toast"></div>
+    <div
+      class="overlay"
+      id="overlay"
+      onclick="if (event.target === this) closeAdd();"
+    >
+      <div class="sheet">
+        <h2>Add an expense</h2>
+        <p>
+          Your current iPhone Shortcut stays connected to the same spreadsheet.
+          Use that Shortcut to add expenses; this dashboard only reads and
+          summarizes your entries.
+        </p>
+        <button onclick="closeAdd()">Got it</button>
+      </div>
+    </div>
+    <script>
+      const PALETTE = [
+        "#e52c7a",
+        "#5746e9",
+        "#36a8a3",
+        "#f29a3d",
+        "#6b9ad8",
+        "#a576db",
+        "#78b76c",
+        "#ee7469",
+      ];
+      let expenses = [],
+        categoryMode = "donut",
+        dataMin = "",
+        dataMax = "";
+      const money = (n) =>
+        "₹" +
+        Number(n || 0).toLocaleString("en-IN", { maximumFractionDigits: 2 });
+      const clean = (s) =>
+        (s || "").replace(/[\p{Extended_Pictographic}\uFE0F]/gu, "").trim() ||
+        "Other";
+      function filtered() {
+        const from = document.getElementById("fromDate").value,
+          to = document.getElementById("toDate").value,
+          q = document.getElementById("search").value.trim().toLowerCase(),
+          cat = document.getElementById("categoryFilter").value,
+          pay = document.getElementById("paymentFilter").value;
+        return expenses
+          .filter(
+            (x) =>
+              (!from || x.isoDate >= from) &&
+              (!to || x.isoDate <= to) &&
+              (!cat || x.category === cat) &&
+              (!pay || x.payment === pay) &&
+              (!q ||
+                `${x.category} ${x.remarks} ${x.payment} ${x.device}`
+                  .toLowerCase()
+                  .includes(q)),
+          )
+          .sort((a, b) =>
+            (b.isoDate + b.time).localeCompare(a.isoDate + a.time),
+          );
+      }
+      function group(rows, key) {
+        const out = {};
+        rows.forEach((x) => {
+          const name = x[key] || "Not specified";
+          out[name] = (out[name] || 0) + x.amount;
+        });
+        return Object.entries(out).sort((a, b) => b[1] - a[1]);
+      }
+      function render() {
+        const rows = filtered(),
+          total = rows.reduce((s, x) => s + x.amount, 0),
+          avg = rows.length ? total / rows.length : 0,
+          cats = group(rows, "category"),
+          pays = group(rows, "payment"),
+          devices = group(rows, "device"),
+          top = cats[0],
+          pay = Object.entries(
+            rows.reduce(
+              (o, x) => (
+                (o[x.payment || "Not specified"] =
+                  (o[x.payment || "Not specified"] || 0) + 1),
+                o
+              ),
+              {},
+            ),
+          ).sort((a, b) => b[1] - a[1])[0],
+          payAmount = pay ? pays.find((x) => x[0] === pay[0])?.[1] || 0 : 0;
+        document.getElementById("totalValue").textContent = money(total);
+        document.getElementById("averageValue").textContent = money(avg);
+        document.getElementById("countLabel").textContent =
+          `${rows.length} ${rows.length === 1 ? "transaction" : "transactions"}`;
+        document.getElementById("averageFoot").textContent =
+          `Calculated across ${rows.length} ${rows.length === 1 ? "item" : "items"}`;
+        document.getElementById("topValue").textContent = top
+          ? clean(top[0])
+          : "—";
+        document.getElementById("topAmount").textContent = top
+          ? money(top[1])
+          : money(0);
+        document.getElementById("topShare").textContent =
+          top && total
+            ? `${Math.round((top[1] / total) * 100)}% of total`
+            : "0% of total";
+        document.getElementById("paymentValue").textContent = pay
+          ? clean(pay[0])
+          : "—";
+        document.getElementById("paymentAmount").textContent = pay
+          ? money(payAmount)
+          : money(0);
+        document.getElementById("paymentShare").textContent =
+          pay && rows.length
+            ? `${Math.round((pay[1] / rows.length) * 100)}% volume`
+            : "0% volume";
+        const from = document.getElementById("fromDate").value,
+          to = document.getElementById("toDate").value;
+        document.getElementById("periodLabel").textContent =
+          (!from || from === dataMin) && (!to || to === dataMax)
+            ? "Full Period"
+            : "Selected Range";
+        document.getElementById("ledgerCount").textContent =
+          `Showing ${rows.length} of ${expenses.length} total ${expenses.length === 1 ? "entry" : "entries"}`;
+        document.getElementById("rangeStatus").innerHTML = rows.length
+          ? `▦ &nbsp;Showing ${rows.length} recorded ${rows.length === 1 ? "date" : "entries"}`
+          : "▦ &nbsp;No entries in this range";
+        renderCategory(rows, cats, total);
+        renderTimeline(rows);
+        renderDistribution(
+          "paymentBreakdown",
+          pays,
+          total,
+          "▣",
+          rows,
+          "payment",
+        );
+        renderDistribution(
+          "deviceBreakdown",
+          devices,
+          total,
+          "▯",
+          rows,
+          "device",
+        );
+        renderLedger(rows);
+      }
+      function renderCategory(rows, cats, total) {
+        const root = document.getElementById("categoryView");
+        if (!rows.length) {
+          root.innerHTML =
+            '<div class="empty">No expenses in this date range.</div>';
+          return;
+        }
+        if (categoryMode === "donut") {
+          let at = 0;
+          const stops = cats
+            .map((c, i) => {
+              const start = at;
+              at += (c[1] / total) * 100;
+              return `${PALETTE[i % PALETTE.length]} ${start}% ${at}%`;
+            })
+            .join(",");
+          root.innerHTML = `<div class="donut" style="background:conic-gradient(${stops})"><div class="donut-center"><small>TOTAL</small><strong>${money(total)}</strong><em>${cats.length} ${cats.length === 1 ? "category" : "categories"}</em></div></div><div class="legend">${cats.map((c, i) => `<div class="legend-row"><i class="legend-dot" style="background:${PALETTE[i % PALETTE.length]}"></i><button class="legend-cat" onclick="pickCategory('${c[0].replaceAll("'", "\\'")}')">${clean(c[0])}</button><strong>${money(c[1])} <small>(${Math.round((c[1] / total) * 100)}%)</small></strong></div>`).join("")}</div>`;
+        } else
+          root.innerHTML = `<div class="rank-list">${cats.map((c, i) => `<div class="rank-row"><span class="rank-num">${String(i + 1).padStart(2, "0")}</span><div><strong>${clean(c[0])}</strong><div class="rank-track"><i style="width:${(c[1] / total) * 100}%;background:${PALETTE[i % PALETTE.length]}"></i></div></div><span class="rank-amount">${money(c[1])}<br><small style="color:var(--muted);font-weight:450">${Math.round((c[1] / total) * 100)}%</small></span></div>`).join("")}</div>`;
+      }
+      function setCategoryView(mode) {
+        categoryMode = mode;
+        document
+          .getElementById("donutBtn")
+          .classList.toggle("on", mode === "donut");
+        document
+          .getElementById("rankBtn")
+          .classList.toggle("on", mode === "rank");
+        render();
+      }
+      function renderTimeline(rows) {
+        const root = document.getElementById("timeline");
+        if (!rows.length) {
+          root.innerHTML = '<div class="empty">No daily spend to chart.</div>';
+          document.getElementById("activeDays").textContent = "0 active days";
+          document.getElementById("dailyPeak").textContent = "";
+          return;
+        }
+        const from =
+            document.getElementById("fromDate").value ||
+            rows[rows.length - 1].isoDate,
+          to = document.getElementById("toDate").value || rows[0].isoDate;
+        let start = new Date(from + "T12:00:00"),
+          end = new Date(to + "T12:00:00");
+        if (end < start) [start, end] = [end, start];
+        let count = Math.min(
+          31,
+          Math.max(1, Math.ceil((end - start) / 86400000) + 1),
+        );
+        if (count === 31) {
+          const today = new Date();
+          if ((end - start) / 86400000 > 30)
+            start = new Date(end.getTime() - 30 * 86400000);
+        }
+        const sums = {};
+        rows.forEach(
+          (x) => (sums[x.isoDate] = (sums[x.isoDate] || 0) + x.amount),
+        );
+        const max = Math.max(...Object.values(sums));
+        const days = Array.from({ length: count }, (_, i) => {
+          const d = new Date(start.getTime() + i * 86400000),
+            key = d.toISOString().slice(0, 10),
+            value = sums[key] || 0;
+          return { key, value, label: `${d.getMonth() + 1}/${d.getDate()}` };
+        });
+        root.innerHTML = days
+          .map(
+            (d) =>
+              `<div class="day-col ${d.value ? "active" : ""}" title="${d.label} · ${money(d.value)}"><div class="bar" style="height:${d.value ? Math.max(4, (d.value / max) * 92) : 0}px"></div><span>${d.label}</span></div>`,
+          )
+          .join("");
+        document.getElementById("activeDays").textContent =
+          `${Object.keys(sums).length} active ${Object.keys(sums).length === 1 ? "day" : "days"}`;
+        document.getElementById("timelineRange").textContent =
+          `${days[0].label} – ${days[days.length - 1].label}`;
+        const peak = Object.entries(sums).sort((a, b) => b[1] - a[1])[0];
+        document.getElementById("dailyPeak").textContent = peak
+          ? `Peak ${peak[0].slice(5).replace("-", "/")} · ${money(peak[1])}`
+          : "";
+      }
+      function renderDistribution(id, items, total, icon, rows, key) {
+        const root = document.getElementById(id);
+        root.innerHTML = items.length
+          ? items
+              .map((it, i) => {
+                const count = rows.filter((x) => x[key] === it[0]).length,
+                  share = rows.length
+                    ? Math.round((count / rows.length) * 100)
+                    : 0;
+                return `<div class="dist-item"><span class="dist-icon">${icon}</span><div class="dist-info"><strong>${clean(it[0])}</strong><small>${count} ${count === 1 ? "transaction" : "transactions"}</small><div class="meter"><i style="width:${share}%"></i></div></div><div class="dist-value"><strong>${money(it[1])}</strong><small>${share}% volume</small></div></div>`;
+              })
+              .join("")
+          : '<div class="empty">No data for this range.</div>';
+      }
+      function renderLedger(rows) {
+        document.getElementById("ledgerRows").innerHTML = rows.length
+          ? rows
+              .map(
+                (x) =>
+                  `<tr><td><strong>${x.displayDate}</strong><br><span style="color:var(--muted)">◷ ${x.time}</span></td><td><span class="badge"><i></i>${clean(x.category)}</span></td><td>${escapeHtml(x.remarks || "—")}</td><td><span class="badge">▯ ${clean(x.payment)}</span></td><td>${escapeHtml(x.device || "—")}</td><td class="amount">${money(x.amount)}</td></tr>`,
+              )
+              .join("")
+          : '<tr><td class="empty" colspan="6">No transactions match these filters.</td></tr>';
+      }
+      function escapeHtml(s) {
+        return String(s || "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      }
+      function pickCategory(cat) {
+        document.getElementById("categoryFilter").value = cat;
+        render();
+      }
+      function openAdd() {
+        document.getElementById("overlay").classList.add("open");
+      }
+      function closeAdd() {
+        document.getElementById("overlay").classList.remove("open");
+      }
+      function localDateValue(date) {
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+      }
+      function setData(data, isLive = false) {
+        if (!data || !Array.isArray(data.expenses)) return;
+        expenses = data.expenses;
+        const dates = expenses
+          .map((x) => x.isoDate)
+          .filter(Boolean)
+          .sort();
+        dataMin = dates[0] || localDateValue(new Date());
+        dataMax = dates[dates.length - 1] || dataMin;
+        document.getElementById("fromDate").value = dataMin;
+        document.getElementById("toDate").value = dataMax;
+        document.getElementById("fromDate").min = dataMin;
+        document.getElementById("fromDate").max = dataMax;
+        document.getElementById("toDate").min = dataMin;
+        document.getElementById("toDate").max = dataMax;
+        const catSel = document.getElementById("categoryFilter"),
+          paySel = document.getElementById("paymentFilter");
+        catSel.innerHTML =
+          '<option value="">All Categories</option>' +
+          [...new Set(expenses.map((x) => x.category))]
+            .map(
+              (x) =>
+                `<option value="${escapeHtml(x)}">${escapeHtml(clean(x))}</option>`,
+            )
+            .join("");
+        paySel.innerHTML =
+          '<option value="">All Payment Modes</option>' +
+          [...new Set(expenses.map((x) => x.payment))]
+            .map(
+              (x) =>
+                `<option value="${escapeHtml(x)}">${escapeHtml(clean(x))}</option>`,
+            )
+            .join("");
+        document.getElementById("connectionNote").textContent = isLive
+          ? "Live spreadsheet data · read-only dashboard. Your existing iPhone Shortcut continues to add expenses."
+          : "Loading live spreadsheet data…";
+        render();
+      }
+      function refreshData() {
+        if (!window.google?.script?.run) return;
+        google.script.run
+          .withSuccessHandler((data) => setData(data, true))
+          .withFailureHandler(() => {
+            document.getElementById("connectionNote").textContent =
+              "Could not load live spreadsheet data. Your existing Shortcut is unaffected.";
+          })
+          .getDashboardData();
+      }
+      [
+        "fromDate",
+        "toDate",
+        "search",
+        "categoryFilter",
+        "paymentFilter",
+      ].forEach((id) =>
+        document
+          .getElementById(id)
+          .addEventListener(id === "search" ? "input" : "change", () => {
+            if (id === "fromDate" || id === "toDate") render();
+          }),
+      );
+      setData({ expenses });
+      refreshData();
+    </script>
+  </body>
+</html>
