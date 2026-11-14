@@ -6,6 +6,7 @@ A read-only Google Apps Script web dashboard for an existing Google Sheets expen
 
 - Responsive dashboard designed for desktop and iPhone Safari.
 - Date-range filtering across the dashboard.
+- Average daily expense: filtered spending divided by all calendar days in the selected date range, including both endpoints and days with ₹0 spending. For example, ₹900 across 3 days is ₹300/day even when all expenses occurred on one day.
 - Spending summaries, category donut/rank view, and daily timeline.
 - Payment-method and device summaries.
 - Searchable transaction ledger with category and payment filters.

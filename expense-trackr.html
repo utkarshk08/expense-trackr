@@ -406,7 +406,7 @@
           </div>
         </article>
         <article class="card kpi">
-          <div class="kpi-label">Avg. per Expense</div>
+          <div class="kpi-label">Avg. Daily Expense</div>
           <span class="kpi-icon green"
             ><svg
               viewBox="0 0 24 24"
@@ -418,7 +418,7 @@
               <path d="M15 5h6v6" /></svg
           ></span>
           <div class="kpi-value" id="averageValue">₹0</div>
-          <div class="kpi-foot" id="averageFoot">Calculated across 0 items</div>
+          <div class="kpi-foot" id="averageFoot">Includes days with ₹0 spending</div>
         </article>
         <article class="card kpi">
           <div class="kpi-label">Top Spending Category</div>
@@ -629,10 +629,22 @@
         });
         return Object.entries(out).sort((a, b) => b[1] - a[1]);
       }
+      function selectedDayCount() {
+        const from = document.getElementById("fromDate").value || dataMin,
+          to = document.getElementById("toDate").value || dataMax;
+        // Count both endpoints in UTC so daylight-saving changes do not alter the count.
+        const start = Date.parse(from + "T00:00:00Z"),
+          end = Date.parse(to + "T00:00:00Z");
+        if (!Number.isFinite(start) || !Number.isFinite(end) || end < start) {
+          return 0;
+        }
+        return Math.floor((end - start) / 86400000) + 1;
+      }
       function render() {
         const rows = filtered(),
           total = rows.reduce((s, x) => s + x.amount, 0),
-          avg = rows.length ? total / rows.length : 0,
+          days = selectedDayCount(),
+          avg = days ? total / days : 0,
           cats = group(rows, "category"),
           pays = group(rows, "payment"),
           devices = group(rows, "device"),
@@ -649,11 +661,13 @@
           ).sort((a, b) => b[1] - a[1])[0],
           payAmount = pay ? pays.find((x) => x[0] === pay[0])?.[1] || 0 : 0;
         document.getElementById("totalValue").textContent = money(total);
-        document.getElementById("averageValue").textContent = money(avg);
+        document.getElementById("averageValue").textContent = days ? money(avg) : "—";
         document.getElementById("countLabel").textContent =
           `${rows.length} ${rows.length === 1 ? "transaction" : "transactions"}`;
         document.getElementById("averageFoot").textContent =
-          `Calculated across ${rows.length} ${rows.length === 1 ? "item" : "items"}`;
+          days
+            ? `Across ${days} calendar ${days === 1 ? "day" : "days"} · includes ₹0 days`
+            : "Choose a valid date range";
         document.getElementById("topValue").textContent = top
           ? clean(top[0])
           : "—";
