@@ -1,917 +1,599 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1,viewport-fit=cover"
-    />
-    <meta name="theme-color" content="#f7f8fc" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Expense Trackr" />
-    <title>Expense Trackr · Analytics</title>
-    <style>
-      @media (max-width: 760px) {
-        .shell {
-          padding: 0 14px 32px;
-        }
-        .top {
-          padding: 17px 0;
-          align-items: flex-start;
-        }
-        .brand {
-          gap: 10px;
-        }
-        .logo {
-          width: 40px;
-          height: 40px;
-          border-radius: 13px;
-        }
-        .brand h1 {
-          font-size: 17px;
-        }
-        .brand p {
-          font-size: 11px;
-        }
-        .pill {
-          font-size: 9px;
-          padding: 2px 6px;
-        }
-        .button {
-          font-size: 12px;
-          padding: 10px 11px;
-          white-space: nowrap;
-        }
-        .button svg {
-          width: 15px;
-        }
-        .slicer {
-          padding: 16px 14px;
-        }
-        .section-title {
-          font-size: 14px;
-          align-items: flex-start;
-        }
-        .section-title small {
-          font-size: 11px;
-        }
-        .slicer-row {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-        .date-controls {
-          width: 100%;
-          justify-content: space-between;
-          gap: 6px;
-          padding: 8px;
-        }
-        .date-controls strong {
-          display: none;
-        }
-        .date-controls input {
-          width: calc(50% - 21px);
-          padding: 8px 5px;
-          font-size: 11px;
-        }
-        .date-controls label {
-          font-size: 11px;
-        }
-        .range-status {
-          align-self: flex-end;
-          font-size: 10px;
-        }
-        .kpis {
-          grid-template-columns: 1fr 1fr;
-          gap: 10px;
-        }
-        .kpi {
-          min-height: 127px;
-          padding: 15px 13px;
-        }
-        .kpi-label {
-          font-size: 10px;
-          letter-spacing: 0.45px;
-        }
-        .kpi-icon {
-          right: 11px;
-          top: 11px;
-          width: 30px;
-          height: 30px;
-        }
-        .kpi-value {
-          font-size: 21px;
-          margin: 17px 0 6px;
-        }
-        .kpi-foot {
-          font-size: 10px;
-        }
-        .panels {
-          grid-template-columns: 1fr;
-          gap: 12px;
-        }
-        .panel {
-          padding: 16px 14px;
-        }
-        .panel-head h2 {
-          font-size: 14px;
-        }
-        .panel-head p {
-          font-size: 11px;
-        }
-        .toggle button {
-          font-size: 10px;
-          padding: 6px 8px;
-        }
-        .donut-area {
-          min-height: 190px;
-          gap: 16px;
-        }
-        .donut {
-          width: 132px;
-          height: 132px;
-        }
-        .donut:after {
-          inset: 18px;
-        }
-        .donut-center strong {
-          font-size: 16px;
-        }
-        .legend {
-          min-width: 100px;
-          gap: 9px;
-        }
-        .legend-row {
-          font-size: 10px;
-          gap: 6px;
-        }
-        .legend-row strong {
-          font-size: 10px;
-        }
-        .timeline-wrap {
-          height: 203px;
-        }
-        .timeline {
-          height: 174px;
-          min-width: 560px;
-        }
-        .dist-grid {
-          grid-template-columns: 1fr;
-          gap: 13px;
-          margin-top: 17px;
-        }
-        .distribution {
-          padding: 16px 14px;
-        }
-        .ledger-head {
-          padding: 15px 14px;
-          align-items: flex-start;
-          flex-direction: column;
-        }
-        .ledger-controls {
-          width: 100%;
-        }
-        .search {
-          width: auto;
-          flex: 1;
-          min-width: 0;
-        }
-        .select {
-          max-width: 126px;
-          font-size: 10px;
-        }
-        .ledger-title h2 {
-          font-size: 14px;
-        }
-        .table-wrap {
-          overflow: visible;
-        }
-        table {
-          min-width: 0;
-        }
-        thead {
-          display: none;
-        }
-        tbody tr {
-          display: grid;
-          grid-template-columns: 1fr auto;
-          gap: 3px 8px;
-          padding: 12px 14px;
-          border-top: 1px solid var(--line);
-        }
-        td {
-          border: 0;
-          padding: 0;
-          font-size: 11px;
-        }
-        td:nth-child(1) {
-          grid-column: 1;
-          grid-row: 1;
-          font-weight: 700;
-          color: #56637c;
-        }
-        td:nth-child(2) {
-          grid-column: 1;
-          grid-row: 2;
-        }
-        td:nth-child(3) {
-          grid-column: 1;
-          grid-row: 3;
-          max-width: 220px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-        td:nth-child(4) {
-          grid-column: 2;
-          grid-row: 2;
-          justify-self: end;
-        }
-        td:nth-child(5) {
-          display: none;
-        }
-        td:nth-child(6) {
-          grid-column: 2;
-          grid-row: 1 / span 2;
-          align-self: center;
-        }
-        .badge {
-          font-size: 10px;
-          padding: 4px 7px;
-        }
-        .amount {
-          font-size: 12px !important;
-        }
-        .ledger-note {
-          padding: 10px 14px;
-        }
-      }
-      .short-title {
-        display: none;
-      }
-      @media (max-width: 760px) {
-        .section-title {
-          display: block;
-        }
-        .section-title small {
-          display: block;
-          padding-left: 27px;
-          margin-top: 4px;
-        }
-        .table-wrap {
-          overflow: visible;
-        }
-        table {
-          min-width: 0;
-        }
-        thead {
-          display: none;
-        }
-        tbody tr {
-          display: grid;
-          grid-template-columns: 1fr auto;
-          gap: 3px 8px;
-          padding: 12px 14px;
-          border-top: 1px solid var(--line);
-        }
-        td:nth-child(5) {
-          display: table-cell;
-          grid-column: 1;
-          grid-row: 4;
-          color: var(--muted);
-          font-size: 10px;
-        }
-      }
-      @media (max-width: 380px) {
-        .long-title {
-          display: none;
-        }
-        .short-title {
-          display: inline;
-        }
-        .brand h1 {
-          font-size: 15px;
-        }
-        .brand p {
-          white-space: nowrap;
-          max-width: 145px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        .pill {
-          display: none;
-        }
-        .top {
-          flex-wrap: wrap;
-        }
-        .brand {
-          width: 100%;
-        }
-        .top > .button {
-          margin-left: auto;
-        }
-        .button {
-          padding: 9px 9px;
-          font-size: 11px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <main class="shell">
-      <header class="top">
-        <div class="brand">
-          <div class="logo">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <rect x="3" y="5" width="18" height="15" rx="2" />
-              <path d="M16 13h5M3 9h18M7 3v4" />
-            </svg>
-          </div>
-          <div>
-            <h1>
-              <span class="long-title">Expense Analytics &amp; Slicer</span
-              ><span class="short-title">Expense Trackr</span>
-              <span class="pill">Interactive</span>
-            </h1>
-            <p>Live spreadsheet sync · Multi-dimensional breakdown</p>
-          </div>
-        </div>
-        <button class="button" onclick="openAdd()">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-          >
-            <path d="M12 5v14M5 12h14" /></svg
-          >Add Expense
-        </button>
-      </header>
-      <section class="card slicer">
-        <div class="section-title">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M4 6h16M7 12h10m-7 6h4" />
-            <circle cx="8" cy="6" r="2" fill="white" />
-            <circle cx="15" cy="12" r="2" fill="white" />
-            <circle cx="11" cy="18" r="2" fill="white" /></svg
-          >Date Range Slicer
-          <small
-            >(Filter from end to end — all charts and tables update
-            automatically)</small
-          >
-        </div>
-        <div class="slicer-row">
-          <div class="date-controls">
-            <strong>▦ &nbsp;Select Dates:</strong
-            ><label for="fromDate">From</label
-            ><input type="date" id="fromDate" /><label for="toDate">To</label
-            ><input type="date" id="toDate" />
-          </div>
-          <div class="range-status" id="rangeStatus">
-            ▦ &nbsp;Showing all recorded dates
-          </div>
-        </div>
-      </section>
-      <section class="kpis">
-        <article class="card kpi">
-          <div class="kpi-label">Total Expenses</div>
-          <span class="kpi-icon"
-            ><svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M12 2v20M17 5.5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
-              /></svg
-          ></span>
-          <div class="kpi-value" id="totalValue">₹0</div>
-          <div class="kpi-foot">
-            <span class="accent" id="periodLabel">Full Period</span> ·
-            <span id="countLabel">0 transactions</span>
-          </div>
-        </article>
-        <article class="card kpi">
-          <div class="kpi-label">Avg. Daily Expense</div>
-          <span class="kpi-icon green"
-            ><svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="m3 17 6-6 4 3 8-9" />
-              <path d="M15 5h6v6" /></svg
-          ></span>
-          <div class="kpi-value" id="averageValue">₹0</div>
-          <div class="kpi-foot" id="averageFoot">Includes days with ₹0 spending</div>
-        </article>
-        <article class="card kpi">
-          <div class="kpi-label">Top Spending Category</div>
-          <span class="kpi-icon pink"
-            ><svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M5 8h14l-1 12H6L5 8Z" />
-              <path d="M9 9V6a3 3 0 0 1 6 0v3" /></svg
-          ></span>
-          <div class="kpi-value" id="topValue">—</div>
-          <div class="kpi-foot">
-            <span id="topAmount">₹0</span
-            ><span class="accent" style="float: right" id="topShare"
-              >0% of total</span
-            >
-          </div>
-        </article>
-        <article class="card kpi">
-          <div class="kpi-label">Primary Payment Mode</div>
-          <span class="kpi-icon orange"
-            ><svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <rect x="3" y="5" width="18" height="14" rx="2" />
-              <path d="M3 10h18" /></svg
-          ></span>
-          <div class="kpi-value" id="paymentValue">—</div>
-          <div class="kpi-foot">
-            <span id="paymentAmount">₹0</span
-            ><span
-              class="accent"
-              style="float: right; color: var(--orange) !important"
-              id="paymentShare"
-              >0% volume</span
-            >
-          </div>
-        </article>
-      </section>
-      <section class="panels">
-        <article class="card panel">
-          <div class="panel-head">
-            <div>
-              <h2>◷ &nbsp;Category Breakdown</h2>
-              <p>Spending share by expense type across selected dates</p>
-            </div>
-            <div class="toggle">
-              <button
-                class="on"
-                id="donutBtn"
-                onclick="setCategoryView('donut')"
-              >
-                Donut</button
-              ><button id="rankBtn" onclick="setCategoryView('rank')">
-                Rank List
-              </button>
-            </div>
-          </div>
-          <div class="donut-area" id="categoryView"></div>
-        </article>
-        <article class="card panel">
-          <div class="panel-head">
-            <div>
-              <h2>▥ &nbsp;Daily Spending Timeline</h2>
-              <p>Chronological expenditure overview</p>
-            </div>
-            <span class="badge" id="activeDays">0 active days</span>
-          </div>
-          <div class="timeline-wrap">
-            <div class="timeline" id="timeline"></div>
-          </div>
-          <div class="chart-foot">
-            <span id="timelineRange">Selected date range</span
-            ><span id="dailyPeak"></span>
-          </div>
-        </article>
-      </section>
-      <section class="card distribution">
-        <div class="section-title">
-          ▤ &nbsp;Payment Methods &amp; Device Distribution
-        </div>
-        <p style="font-size: 12px; color: var(--muted); margin: 4px 0 0">
-          Breakdown by payment channel and hardware origin
-        </p>
-        <div class="dist-grid">
-          <div class="dist-group">
-            <h3>PAYMENT CHANNELS</h3>
-            <div id="paymentBreakdown"></div>
-          </div>
-          <div class="dist-group">
-            <h3>LOGGED DEVICES</h3>
-            <div id="deviceBreakdown"></div>
-          </div>
-        </div>
-      </section>
-      <section class="card ledger">
-        <div class="ledger-head">
-          <div class="ledger-title">
-            <span class="dist-icon">▤</span>
-            <div>
-              <h2>Transactions Ledger</h2>
-              <p id="ledgerCount">Loading transactions…</p>
-            </div>
-          </div>
-          <div class="ledger-controls">
-            <input
-              class="search"
-              id="search"
-              placeholder="⌕  Search remarks, category…"
-            /><select class="select" id="categoryFilter">
-              <option value="">All Categories</option></select
-            ><select class="select" id="paymentFilter">
-              <option value="">All Payment Modes</option>
-            </select>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Date &amp; Time</th>
-                <th>Category</th>
-                <th>Remarks / Note</th>
-                <th>Payment Mode</th>
-                <th>Device</th>
-                <th style="text-align: right">Amount</th>
-              </tr>
-            </thead>
-            <tbody id="ledgerRows"></tbody>
-          </table>
-        </div>
-        <div class="ledger-note" id="connectionNote">
-          Showing your workbook data. This dashboard is read-only; your existing
-          Shortcut remains your expense-entry path.
-        </div>
-      </section>
-    </main>
-    <div class="toast" id="toast"></div>
-    <div
-      class="overlay"
-      id="overlay"
-      onclick="if (event.target === this) closeAdd();"
-    >
-      <div class="sheet">
-        <h2>Add an expense</h2>
-        <p>
-          Your current iPhone Shortcut stays connected to the same spreadsheet.
-          Use that Shortcut to add expenses; this dashboard only reads and
-          summarizes your entries.
-        </p>
-        <button onclick="closeAdd()">Got it</button>
-      </div>
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f7fb">
+  <meta name="color-scheme" content="light">
+  <title>Expense Trackr</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7fb; --card: #fff; --ink: #20253a; --muted: #69768e;
+      --line: #e7ebf3; --purple: #5848e8; --pink: #df2b7b;
+      --green: #238b69; --orange: #c87822; --shadow: 0 8px 28px #2633540a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font: 15px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; touch-action: manipulation; }
+    button:disabled { cursor: wait; opacity: .65; }
+    button, input, select { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid #9b90ff; outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .wrap { max-width: 1100px; margin: auto; padding: 20px 18px 42px; }
+    .top, .brand, .head, .statline, .legend { display: flex; align-items: center; }
+    .top { justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 4px 0 12px; }
+    .brand { gap: 12px; min-width: 0; }
+    .logo {
+      width: 44px; height: 44px; border-radius: 14px; background: var(--purple);
+      color: white; display: grid; place-items: center; font-size: 22px;
+      box-shadow: 0 5px 15px #5848e833; flex: none;
+    }
+    .brand h1 { font-size: 20px; margin: 0; letter-spacing: -.4px; }
+    .brand p { color: var(--muted); font-size: 12px; margin: 3px 0; }
+    .header-actions { display: flex; gap: 8px; }
+    .btn {
+      border: 1px solid transparent; border-radius: 12px; min-height: 44px;
+      padding: 10px 14px; background: var(--purple); color: white;
+      font-weight: 650; font-size: 13px; box-shadow: 0 5px 15px #5848e826;
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn.secondary { background: white; color: var(--purple); border-color: var(--line); box-shadow: none; }
+    .sync-line { display: flex; align-items: center; gap: 7px; min-height: 28px; margin-bottom: 10px; }
+    .sync-dot { width: 6px; height: 6px; background: #8b96aa; border-radius: 50%; flex: none; }
+    .sync-line[data-state="ready"] .sync-dot { background: var(--green); }
+    .sync-line[data-state="error"] .sync-dot { background: var(--orange); }
+    .sync-line span:last-child { font-size: 11px; color: var(--muted); }
+    .card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 19px;
+      box-shadow: var(--shadow); padding: 18px; margin-bottom: 14px; min-width: 0;
+    }
+    .head { justify-content: space-between; gap: 10px; }
+    h2 { font-size: 15px; margin: 0; }
+    .sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .presets { display: flex; flex-wrap: wrap; gap: 7px; margin: 15px 0; }
+    .preset, .filter-reset {
+      min-height: 44px; border: 1px solid var(--line); border-radius: 11px;
+      background: #fafbfe; padding: 9px 13px; color: #52617a; font-size: 12px; font-weight: 600;
+    }
+    .preset[aria-pressed="true"] { color: var(--purple); border-color: #d5cfff; background: #f1efff; }
+    .controls { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; }
+    .date-field { display: grid; gap: 5px; min-width: 0; }
+    .date-field label { font-size: 11px; font-weight: 600; color: var(--muted); }
+    .date-field input, .search {
+      min-height: 44px; border: 1px solid var(--line); border-radius: 11px;
+      background: #fff; padding: 9px 11px; font-size: 14px; color: #38445d; min-width: 0;
+    }
+    .range { margin: 0 0 12px auto; color: var(--muted); font-size: 12px; }
+    .date-error { font-size: 12px; color: #ad421f; margin: 10px 0 0; }
+    .active-filters { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .filter-summary { font-size: 11px; color: var(--muted); flex: 1; min-width: 120px; overflow-wrap: anywhere; }
+    .filter-reset { color: var(--purple); background: #fff; flex: none; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 14px; }
+    .stat { padding: 16px; margin: 0; }
+    .stat-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; min-height: 32px; }
+    .stat-label { font-size: 10px; letter-spacing: .6px; text-transform: uppercase; color: #69768e; font-weight: 700; }
+    .stat b { display: block; font-size: 23px; line-height: 1.2; letter-spacing: -.5px; margin: 10px 0 7px; overflow-wrap: anywhere; }
+    .stat small { display: block; color: var(--muted); font-size: 11px; }
+    .stat b, .amount { font-variant-numeric: tabular-nums; }
+    .icon { width: 30px; height: 30px; flex: none; display: grid; place-items: center; border-radius: 9px; background: #f1efff; color: var(--purple); }
+    .icon.green { color: var(--green); background: #edfaf5; }
+    .icon.violet { color: #9350dc; background: #f7f0ff; }
+    .icon.orange { color: var(--orange); background: #fff7ea; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .category-head { flex-wrap: wrap; }
+    .switches { display: flex; background: #f1f3f8; padding: 3px; border-radius: 12px; gap: 2px; flex: none; }
+    .switch { border: 0; border-radius: 9px; background: transparent; min-height: 44px; padding: 8px 11px; color: #66738a; font-size: 12px; }
+    .switch.on { background: white; color: var(--ink); box-shadow: 0 1px 5px #0001; }
+    /* Preserve the existing category donut, palette, legend, and rank layout. */
+    .chart { min-height: 206px; display: flex; align-items: center; justify-content: center; gap: 22px; padding-top: 14px; }
+    .donut { width: 144px; height: 144px; flex: none; border-radius: 50%; display: grid; place-items: center; position: relative; }
+    .donut:after { content: ""; position: absolute; inset: 20px; border-radius: 50%; background: white; }
+    .center { position: relative; z-index: 1; text-align: center; }
+    .center small { display: block; font-size: 10px; color: var(--muted); }
+    .center b { font-size: 17px; }
+    .legend { flex-wrap: wrap; gap: 8px 13px; align-content: center; }
+    .legend span { font-size: 11px; color: #52617a; }
+    .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; }
+    .timeline {
+      height: 198px; display: flex; align-items: stretch; gap: 2px; overflow-x: auto;
+      padding: 8px 2px 0; margin-top: 14px; border-bottom: 1px solid var(--line);
+      background: repeating-linear-gradient(to top, white 0 35px, #edf0f6 36px);
+      overscroll-behavior-x: contain;
+    }
+    .timeline-day {
+      position: relative; display: flex; flex: 1 0 44px; min-width: 44px; max-width: 64px;
+      align-items: center; justify-content: flex-end; flex-direction: column;
+      padding: 5px 6px 25px; border: 0; background: transparent; color: var(--muted); border-radius: 8px;
+    }
+    .timeline-day .bar { width: 100%; max-width: 30px; min-height: 5px; background: var(--purple); border-radius: 5px 5px 0 0; }
+    .timeline-day small { position: absolute; bottom: 5px; font-size: 10px; white-space: nowrap; }
+    .timeline-day:focus-visible { outline-offset: -3px; }
+    .timeline-hint { color: var(--muted); font-size: 11px; margin-top: 8px; }
+    .tag { display: inline-block; border-radius: 99px; background: #f2f3f8; padding: 4px 8px; font-size: 11px; }
+    .distgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 15px; }
+    .distgroup h3 { font-size: 10px; letter-spacing: .7px; color: #7f8ba2; }
+    .item { padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: #fafbfe; margin: 7px 0; font-size: 12px; }
+    .statline { justify-content: space-between; gap: 10px; }
+    .meter { height: 4px; background: #e8eaf3; border-radius: 5px; margin-top: 6px; }
+    .meter i { display: block; height: 100%; background: var(--purple); border-radius: 5px; }
+    .ledger-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .ledger-filters { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 8px; margin-top: 14px; }
+    .ledger-filters .search { width: 100%; }
+    .tablewrap { overflow: auto; margin: 14px -18px 0; }
+    table { width: 100%; border-collapse: collapse; min-width: 620px; }
+    th, td { text-align: left; padding: 11px 13px; border-top: 1px solid var(--line); font-size: 12px; }
+    th { color: #69768e; background: #fafbfe; text-transform: uppercase; font-size: 9px; letter-spacing: .5px; }
+    td:last-child, th:last-child { text-align: right; }
+    .note-link { padding: 8px 0; min-height: 44px; border: 0; background: none; color: var(--purple); text-align: left; }
+    .transaction-list { display: none; margin-top: 10px; }
+    .transaction {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%;
+      padding: 14px 0; min-height: 76px; border: 0; border-bottom: 1px solid var(--line);
+      background: white; color: var(--ink); text-align: left; border-radius: 0;
+    }
+    .transaction-main { min-width: 0; flex: 1; }
+    .transaction-title { display: block; font-size: 14px; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .transaction-meta { display: block; font-size: 11px; margin-top: 4px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .transaction-value { display: flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 650; flex: none; }
+    .chevron { color: #a3adbc; font-size: 20px; font-weight: 400; }
+    .date-group { margin: 16px 0 0; font-size: 11px; color: var(--muted); font-weight: 650; }
+    .show-more { width: 100%; margin-top: 14px; }
+    .note { font-size: 11px; color: var(--muted); margin-top: 14px; }
+    .empty { color: var(--muted); font-size: 12px; text-align: center; padding: 22px 12px; width: 100%; }
+    .sheet {
+      position: fixed; inset: auto 0 20px; width: min(480px, calc(100% - 32px)); max-width: 100%;
+      max-height: min(85vh, 760px); max-height: min(85dvh, 760px); margin: auto;
+      padding: 0; border: 1px solid var(--line); border-radius: 24px; color: var(--ink);
+      background: white; box-shadow: 0 18px 80px #141b3633; overflow-y: auto; overscroll-behavior: contain;
+    }
+    .sheet::backdrop { background: #141b3666; }
+    .sheet-content { padding: 14px 22px 24px; }
+    .sheet-handle { height: 4px; width: 34px; border-radius: 10px; background: #dfe3ed; margin: 0 auto 9px; }
+    .sheet-header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .sheet-header h2 { font-size: 17px; flex: 1; }
+    .icon-button { border: 0; border-radius: 12px; width: 44px; height: 44px; flex: none; background: #f2f3f8; color: #52617a; font-size: 22px; }
+    .detail-amount { margin: 0 0 5px; font-size: 34px; font-weight: 750; letter-spacing: -1px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+    .detail-sub { color: var(--muted); font-size: 13px; margin-bottom: 19px; }
+    .detail-fields { margin: 0; }
+    .detail-fields div { display: grid; grid-template-columns: 90px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 13px; }
+    .detail-fields dt { color: var(--muted); }
+    .detail-fields dd { margin: 0; text-align: right; overflow-wrap: anywhere; white-space: pre-wrap; }
+    .sheet p { font-size: 14px; color: var(--muted); }
+    .sheet .transaction-list { display: block; }
+    .sheet-footer { width: 100%; margin-top: 16px; }
+    @media (min-width: 721px) and (max-width: 900px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .wrap { padding: 14px 12px calc(28px + env(safe-area-inset-bottom)); }
+      .top { gap: 12px; padding-bottom: 8px; }
+      .brand h1 { font-size: 19px; }
+      .brand p { font-size: 11px; }
+      .logo { width: 42px; height: 42px; }
+      .header-actions { width: 100%; }
+      .header-actions .btn { flex: 1; }
+      .sync-line { margin-bottom: 9px; }
+      .card { padding: 15px; }
+      .head h2 { font-size: 14px; }
+      .range-head .sub { display: none; }
+      .presets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; margin: 13px 0; }
+      .controls { gap: 10px; }
+      .date-field { width: calc(50% - 5px); }
+      .date-field input { width: 100%; font-size: 16px; min-height: 46px; }
+      .range { width: 100%; margin: 0; font-size: 11px; }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+      .stat { padding: 13px; min-height: 143px; }
+      .stat-heading { min-height: 32px; gap: 5px; }
+      .stat b { font-size: clamp(19px, 5.4vw, 23px); }
+      .stat small { font-size: 11px; }
+      .stat-label { font-size: 10px; letter-spacing: .25px; }
+      .icon { width: 27px; height: 27px; border-radius: 8px; }
+      .grid { grid-template-columns: 1fr; gap: 0; }
+      .chart { min-height: 180px; gap: 13px; }
+      .donut { width: 125px; height: 125px; }
+      .donut:after { inset: 17px; }
+      .legend span { font-size: 10px; }
+      .distgrid { grid-template-columns: 1fr; gap: 8px; }
+      .ledger-filters { grid-template-columns: 1fr 1fr; }
+      .ledger-filters input { grid-column: 1 / -1; }
+      .search { font-size: 16px; min-height: 46px; }
+      .tablewrap { display: none; }
+      .transaction-list { display: block; }
+      .sheet { inset: auto 0 0; width: 100%; max-height: 88vh; max-height: 88dvh; border-radius: 24px 24px 0 0; }
+      .sheet-content { padding: 12px 20px calc(22px + env(safe-area-inset-bottom)); }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .btn, .preset, .switch, .icon-button, .filter-reset, .transaction, .timeline-day { transition: transform 150ms ease, opacity 150ms ease; }
+      button:active:not(:disabled) { transform: scale(.98); }
+      .sheet[open] { animation: sheet-in 180ms ease-out; }
+      .sheet[open]::backdrop { animation: backdrop-in 150ms ease-out; }
+      @keyframes sheet-in { from { transform: translateY(20px); opacity: .6; } to { transform: translateY(0); opacity: 1; } }
+      @keyframes backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+    }
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo" aria-hidden="true">₹</div><div><h1>Expense Trackr</h1><p>Your spending, at a glance</p></div></div>
+    <div class="header-actions">
+      <button class="btn secondary" id="addExpense" type="button">＋ Add Expense</button>
+      <button class="btn" id="refresh" type="button"><span aria-hidden="true">↻</span><span id="refreshLabel">Refresh data</span></button>
     </div>
-    <script>
-      const PALETTE = [
-        "#e52c7a",
-        "#5746e9",
-        "#36a8a3",
-        "#f29a3d",
-        "#6b9ad8",
-        "#a576db",
-        "#78b76c",
-        "#ee7469",
-      ];
-      let expenses = [],
-        categoryMode = "donut",
-        dataMin = "",
-        dataMax = "";
-      const money = (n) =>
-        "₹" +
-        Number(n || 0).toLocaleString("en-IN", { maximumFractionDigits: 2 });
-      const clean = (s) =>
-        (s || "").replace(/[\p{Extended_Pictographic}\uFE0F]/gu, "").trim() ||
-        "Other";
-      function filtered() {
-        const from = document.getElementById("fromDate").value,
-          to = document.getElementById("toDate").value,
-          q = document.getElementById("search").value.trim().toLowerCase(),
-          cat = document.getElementById("categoryFilter").value,
-          pay = document.getElementById("paymentFilter").value;
-        return expenses
-          .filter(
-            (x) =>
-              (!from || x.isoDate >= from) &&
-              (!to || x.isoDate <= to) &&
-              (!cat || x.category === cat) &&
-              (!pay || x.payment === pay) &&
-              (!q ||
-                `${x.category} ${x.remarks} ${x.payment} ${x.device}`
-                  .toLowerCase()
-                  .includes(q)),
-          )
-          .sort((a, b) =>
-            (b.isoDate + b.time).localeCompare(a.isoDate + a.time),
-          );
-      }
-      function group(rows, key) {
-        const out = {};
-        rows.forEach((x) => {
-          const name = x[key] || "Not specified";
-          out[name] = (out[name] || 0) + x.amount;
-        });
-        return Object.entries(out).sort((a, b) => b[1] - a[1]);
-      }
-      function selectedDayCount() {
-        const from = document.getElementById("fromDate").value || dataMin,
-          to = document.getElementById("toDate").value || dataMax;
-        // Count both endpoints in UTC so daylight-saving changes do not alter the count.
-        const start = Date.parse(from + "T00:00:00Z"),
-          end = Date.parse(to + "T00:00:00Z");
-        if (!Number.isFinite(start) || !Number.isFinite(end) || end < start) {
-          return 0;
-        }
-        return Math.floor((end - start) / 86400000) + 1;
-      }
-      function render() {
-        const rows = filtered(),
-          total = rows.reduce((s, x) => s + x.amount, 0),
-          days = selectedDayCount(),
-          avg = days ? total / days : 0,
-          cats = group(rows, "category"),
-          pays = group(rows, "payment"),
-          devices = group(rows, "device"),
-          top = cats[0],
-          pay = Object.entries(
-            rows.reduce(
-              (o, x) => (
-                (o[x.payment || "Not specified"] =
-                  (o[x.payment || "Not specified"] || 0) + 1),
-                o
-              ),
-              {},
-            ),
-          ).sort((a, b) => b[1] - a[1])[0],
-          payAmount = pay ? pays.find((x) => x[0] === pay[0])?.[1] || 0 : 0;
-        document.getElementById("totalValue").textContent = money(total);
-        document.getElementById("averageValue").textContent = days ? money(avg) : "—";
-        document.getElementById("countLabel").textContent =
-          `${rows.length} ${rows.length === 1 ? "transaction" : "transactions"}`;
-        document.getElementById("averageFoot").textContent =
-          days
-            ? `Across ${days} calendar ${days === 1 ? "day" : "days"} · includes ₹0 days`
-            : "Choose a valid date range";
-        document.getElementById("topValue").textContent = top
-          ? clean(top[0])
-          : "—";
-        document.getElementById("topAmount").textContent = top
-          ? money(top[1])
-          : money(0);
-        document.getElementById("topShare").textContent =
-          top && total
-            ? `${Math.round((top[1] / total) * 100)}% of total`
-            : "0% of total";
-        document.getElementById("paymentValue").textContent = pay
-          ? clean(pay[0])
-          : "—";
-        document.getElementById("paymentAmount").textContent = pay
-          ? money(payAmount)
-          : money(0);
-        document.getElementById("paymentShare").textContent =
-          pay && rows.length
-            ? `${Math.round((pay[1] / rows.length) * 100)}% volume`
-            : "0% volume";
-        const from = document.getElementById("fromDate").value,
-          to = document.getElementById("toDate").value;
-        document.getElementById("periodLabel").textContent =
-          (!from || from === dataMin) && (!to || to === dataMax)
-            ? "Full Period"
-            : "Selected Range";
-        document.getElementById("ledgerCount").textContent =
-          `Showing ${rows.length} of ${expenses.length} total ${expenses.length === 1 ? "entry" : "entries"}`;
-        document.getElementById("rangeStatus").innerHTML = rows.length
-          ? `▦ &nbsp;Showing ${rows.length} recorded ${rows.length === 1 ? "date" : "entries"}`
-          : "▦ &nbsp;No entries in this range";
-        renderCategory(rows, cats, total);
-        renderTimeline(rows);
-        renderDistribution(
-          "paymentBreakdown",
-          pays,
-          total,
-          "▣",
-          rows,
-          "payment",
-        );
-        renderDistribution(
-          "deviceBreakdown",
-          devices,
-          total,
-          "▯",
-          rows,
-          "device",
-        );
-        renderLedger(rows);
-      }
-      function renderCategory(rows, cats, total) {
-        const root = document.getElementById("categoryView");
-        if (!rows.length) {
-          root.innerHTML =
-            '<div class="empty">No expenses in this date range.</div>';
-          return;
-        }
-        if (categoryMode === "donut") {
-          let at = 0;
-          const stops = cats
-            .map((c, i) => {
-              const start = at;
-              at += (c[1] / total) * 100;
-              return `${PALETTE[i % PALETTE.length]} ${start}% ${at}%`;
-            })
-            .join(",");
-          root.innerHTML = `<div class="donut" style="background:conic-gradient(${stops})"><div class="donut-center"><small>TOTAL</small><strong>${money(total)}</strong><em>${cats.length} ${cats.length === 1 ? "category" : "categories"}</em></div></div><div class="legend">${cats.map((c, i) => `<div class="legend-row"><i class="legend-dot" style="background:${PALETTE[i % PALETTE.length]}"></i><button class="legend-cat" onclick="pickCategory('${c[0].replaceAll("'", "\\'")}')">${clean(c[0])}</button><strong>${money(c[1])} <small>(${Math.round((c[1] / total) * 100)}%)</small></strong></div>`).join("")}</div>`;
-        } else
-          root.innerHTML = `<div class="rank-list">${cats.map((c, i) => `<div class="rank-row"><span class="rank-num">${String(i + 1).padStart(2, "0")}</span><div><strong>${clean(c[0])}</strong><div class="rank-track"><i style="width:${(c[1] / total) * 100}%;background:${PALETTE[i % PALETTE.length]}"></i></div></div><span class="rank-amount">${money(c[1])}<br><small style="color:var(--muted);font-weight:450">${Math.round((c[1] / total) * 100)}%</small></span></div>`).join("")}</div>`;
-      }
-      function setCategoryView(mode) {
-        categoryMode = mode;
-        document
-          .getElementById("donutBtn")
-          .classList.toggle("on", mode === "donut");
-        document
-          .getElementById("rankBtn")
-          .classList.toggle("on", mode === "rank");
-        render();
-      }
-      function renderTimeline(rows) {
-        const root = document.getElementById("timeline");
-        if (!rows.length) {
-          root.innerHTML = '<div class="empty">No daily spend to chart.</div>';
-          document.getElementById("activeDays").textContent = "0 active days";
-          document.getElementById("dailyPeak").textContent = "";
-          return;
-        }
-        const from =
-            document.getElementById("fromDate").value ||
-            rows[rows.length - 1].isoDate,
-          to = document.getElementById("toDate").value || rows[0].isoDate;
-        let start = new Date(from + "T12:00:00"),
-          end = new Date(to + "T12:00:00");
-        if (end < start) [start, end] = [end, start];
-        let count = Math.min(
-          31,
-          Math.max(1, Math.ceil((end - start) / 86400000) + 1),
-        );
-        if (count === 31) {
-          const today = new Date();
-          if ((end - start) / 86400000 > 30)
-            start = new Date(end.getTime() - 30 * 86400000);
-        }
-        const sums = {};
-        rows.forEach(
-          (x) => (sums[x.isoDate] = (sums[x.isoDate] || 0) + x.amount),
-        );
-        const max = Math.max(...Object.values(sums));
-        const days = Array.from({ length: count }, (_, i) => {
-          const d = new Date(start.getTime() + i * 86400000),
-            key = d.toISOString().slice(0, 10),
-            value = sums[key] || 0;
-          return { key, value, label: `${d.getMonth() + 1}/${d.getDate()}` };
-        });
-        root.innerHTML = days
-          .map(
-            (d) =>
-              `<div class="day-col ${d.value ? "active" : ""}" title="${d.label} · ${money(d.value)}"><div class="bar" style="height:${d.value ? Math.max(4, (d.value / max) * 92) : 0}px"></div><span>${d.label}</span></div>`,
-          )
-          .join("");
-        document.getElementById("activeDays").textContent =
-          `${Object.keys(sums).length} active ${Object.keys(sums).length === 1 ? "day" : "days"}`;
-        document.getElementById("timelineRange").textContent =
-          `${days[0].label} – ${days[days.length - 1].label}`;
-        const peak = Object.entries(sums).sort((a, b) => b[1] - a[1])[0];
-        document.getElementById("dailyPeak").textContent = peak
-          ? `Peak ${peak[0].slice(5).replace("-", "/")} · ${money(peak[1])}`
-          : "";
-      }
-      function renderDistribution(id, items, total, icon, rows, key) {
-        const root = document.getElementById(id);
-        root.innerHTML = items.length
-          ? items
-              .map((it, i) => {
-                const count = rows.filter((x) => x[key] === it[0]).length,
-                  share = rows.length
-                    ? Math.round((count / rows.length) * 100)
-                    : 0;
-                return `<div class="dist-item"><span class="dist-icon">${icon}</span><div class="dist-info"><strong>${clean(it[0])}</strong><small>${count} ${count === 1 ? "transaction" : "transactions"}</small><div class="meter"><i style="width:${share}%"></i></div></div><div class="dist-value"><strong>${money(it[1])}</strong><small>${share}% volume</small></div></div>`;
-              })
-              .join("")
-          : '<div class="empty">No data for this range.</div>';
-      }
-      function renderLedger(rows) {
-        document.getElementById("ledgerRows").innerHTML = rows.length
-          ? rows
-              .map(
-                (x) =>
-                  `<tr><td><strong>${x.displayDate}</strong><br><span style="color:var(--muted)">◷ ${x.time}</span></td><td><span class="badge"><i></i>${clean(x.category)}</span></td><td>${escapeHtml(x.remarks || "—")}</td><td><span class="badge">▯ ${clean(x.payment)}</span></td><td>${escapeHtml(x.device || "—")}</td><td class="amount">${money(x.amount)}</td></tr>`,
-              )
-              .join("")
-          : '<tr><td class="empty" colspan="6">No transactions match these filters.</td></tr>';
-      }
-      function escapeHtml(s) {
-        return String(s || "").replace(
-          /[&<>"']/g,
-          (c) =>
-            ({
-              "&": "&amp;",
-              "<": "&lt;",
-              ">": "&gt;",
-              '"': "&quot;",
-              "'": "&#39;",
-            })[c],
-        );
-      }
-      function pickCategory(cat) {
-        document.getElementById("categoryFilter").value = cat;
-        render();
-      }
-      function openAdd() {
-        document.getElementById("overlay").classList.add("open");
-      }
-      function closeAdd() {
-        document.getElementById("overlay").classList.remove("open");
-      }
-      function localDateValue(date) {
-        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-      }
-      function setData(data, isLive = false) {
-        if (!data || !Array.isArray(data.expenses)) return;
-        expenses = data.expenses;
-        const dates = expenses
-          .map((x) => x.isoDate)
-          .filter(Boolean)
-          .sort();
-        dataMin = dates[0] || localDateValue(new Date());
-        dataMax = dates[dates.length - 1] || dataMin;
-        document.getElementById("fromDate").value = dataMin;
-        document.getElementById("toDate").value = dataMax;
-        document.getElementById("fromDate").min = dataMin;
-        document.getElementById("fromDate").max = dataMax;
-        document.getElementById("toDate").min = dataMin;
-        document.getElementById("toDate").max = dataMax;
-        const catSel = document.getElementById("categoryFilter"),
-          paySel = document.getElementById("paymentFilter");
-        catSel.innerHTML =
-          '<option value="">All Categories</option>' +
-          [...new Set(expenses.map((x) => x.category))]
-            .map(
-              (x) =>
-                `<option value="${escapeHtml(x)}">${escapeHtml(clean(x))}</option>`,
-            )
-            .join("");
-        paySel.innerHTML =
-          '<option value="">All Payment Modes</option>' +
-          [...new Set(expenses.map((x) => x.payment))]
-            .map(
-              (x) =>
-                `<option value="${escapeHtml(x)}">${escapeHtml(clean(x))}</option>`,
-            )
-            .join("");
-        document.getElementById("connectionNote").textContent = isLive
-          ? "Live spreadsheet data · read-only dashboard. Your existing iPhone Shortcut continues to add expenses."
-          : "Loading live spreadsheet data…";
-        render();
-      }
-      function refreshData() {
-        if (!window.google?.script?.run) return;
-        google.script.run
-          .withSuccessHandler((data) => setData(data, true))
-          .withFailureHandler(() => {
-            document.getElementById("connectionNote").textContent =
-              "Could not load live spreadsheet data. Your existing Shortcut is unaffected.";
-          })
-          .getDashboardData();
-      }
-      [
-        "fromDate",
-        "toDate",
-        "search",
-        "categoryFilter",
-        "paymentFilter",
-      ].forEach((id) =>
-        document
-          .getElementById(id)
-          .addEventListener(id === "search" ? "input" : "change", () => {
-            if (id === "fromDate" || id === "toDate") render();
-          }),
-      );
-      setData({ expenses });
-      refreshData();
-    </script>
-  </body>
+  </header>
+  <div class="sync-line" id="syncLine" data-state="loading"><span class="sync-dot" aria-hidden="true"></span><span id="syncStatus" role="status" aria-live="polite">Connecting to your spreadsheet…</span></div>
+
+  <section class="card" aria-labelledby="rangeTitle">
+    <div class="head range-head"><h2 id="rangeTitle">☷ &nbsp;Date Range Slicer</h2><span class="sub">Charts and ledger update together</span></div>
+    <div class="presets" role="group" aria-label="Quick date ranges">
+      <button class="preset" type="button" data-preset="today" aria-pressed="false">Today</button>
+      <button class="preset" type="button" data-preset="week" aria-pressed="false">Last 7 days</button>
+      <button class="preset" type="button" data-preset="month" aria-pressed="false">This month</button>
+      <button class="preset" type="button" data-preset="all" aria-pressed="true">All time</button>
+    </div>
+    <div class="controls">
+      <div class="date-field"><label for="from">From</label><input id="from" type="date" aria-describedby="dateError"></div>
+      <div class="date-field"><label for="to">To</label><input id="to" type="date" aria-describedby="dateError"></div>
+      <p class="range" id="range">Loading entries…</p>
+    </div>
+    <p class="date-error" id="dateError" role="status" hidden></p>
+    <div class="active-filters" id="activeFilters" hidden><span class="filter-summary" id="filterSummary"></span><button class="filter-reset" id="resetFilters" type="button">Reset filters</button></div>
+  </section>
+
+  <section class="stats" aria-label="Spending summary">
+    <article class="card stat"><div class="stat-heading"><span class="stat-label">Total expenses</span><span class="icon" aria-hidden="true">₹</span></div><b id="total">—</b><small id="count">Loading expenses…</small></article>
+    <article class="card stat"><div class="stat-heading"><span class="stat-label">Avg. daily expense</span><span class="icon green" aria-hidden="true">↗</span></div><b id="avg">—</b><small id="avgDays">Includes days with ₹0 spending</small></article>
+    <article class="card stat"><div class="stat-heading"><span class="stat-label">Top category</span><span class="icon violet" aria-hidden="true">◈</span></div><b id="top">—</b><small id="topAmt">—</small></article>
+    <article class="card stat"><div class="stat-heading"><span class="stat-label">Primary payment</span><span class="icon orange" aria-hidden="true">▭</span></div><b id="pay">—</b><small id="payAmt">—</small></article>
+  </section>
+
+  <section class="grid">
+    <article class="card" aria-labelledby="categoryTitle">
+      <div class="head category-head"><div><h2 id="categoryTitle">◷ &nbsp;Category Breakdown</h2><div class="sub">Spending share by category</div></div><div class="switches" role="group" aria-label="Category chart view"><button class="switch on" id="donutBtn" type="button" aria-pressed="true">Donut</button><button class="switch" id="rankBtn" type="button" aria-pressed="false">Rank List</button></div></div>
+      <div id="category" class="chart"></div>
+    </article>
+    <article class="card" aria-labelledby="timelineTitle">
+      <div class="head"><div><h2 id="timelineTitle">▥ &nbsp;Daily Spending Timeline</h2><div class="sub">Tap a day to explore its expenses</div></div><span class="tag" id="days">0 active days</span></div>
+      <div class="timeline" id="timeline" aria-label="Daily spending; tap a bar for details"></div>
+      <div class="timeline-hint" id="timelineHint"></div>
+    </article>
+  </section>
+
+  <section class="card" aria-labelledby="distributionTitle">
+    <h2 id="distributionTitle">▤ &nbsp;Payment Methods &amp; Device Distribution</h2><div class="sub">Breakdown by payment channel and device</div>
+    <div class="distgrid"><div class="distgroup"><h3>PAYMENT CHANNELS</h3><div id="payments"></div></div><div class="distgroup"><h3>LOGGED DEVICES</h3><div id="devices"></div></div></div>
+  </section>
+
+  <section class="card" id="ledger" aria-labelledby="ledgerTitle">
+    <div class="ledger-head"><div><h2 id="ledgerTitle">▤ &nbsp;Transactions Ledger</h2><div class="sub" id="entries">Loading entries…</div></div><span class="sub">Newest first · tap for details</span></div>
+    <div class="ledger-filters">
+      <label class="sr-only" for="search">Search expenses</label><input class="search" id="search" type="search" placeholder="Search remarks or category…" autocomplete="off">
+      <label class="sr-only" for="cat">Category</label><select id="cat" class="search"><option value="">All Categories</option></select>
+      <label class="sr-only" for="method">Payment method</label><select id="method" class="search"><option value="">All Payment Modes</option></select>
+    </div>
+    <div class="tablewrap"><table><thead><tr><th>Date &amp; time</th><th>Category</th><th>Remarks / note</th><th>Payment</th><th>Device</th><th>Amount</th></tr></thead><tbody id="rows"></tbody></table></div>
+    <div class="transaction-list" id="transactionList"></div>
+    <button class="btn secondary show-more" id="showMore" type="button" hidden>Show more expenses</button>
+    <div class="note" id="note">Read-only view · Add new expenses with your iPhone Shortcut.</div>
+  </section>
+</main>
+
+<dialog class="sheet" id="detailDialog" aria-labelledby="detailTitle">
+  <div class="sheet-content">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <div class="sheet-header"><button class="icon-button" id="detailBack" type="button" aria-label="Back to day expenses" hidden>‹</button><h2 id="detailTitle">Expense details</h2><button class="icon-button" id="detailClose" type="button" aria-label="Close details" autofocus>×</button></div>
+    <div id="detailBody"></div>
+  </div>
+</dialog>
+
+<script>
+  'use strict';
+  var expenses = [], mode = 'donut';
+  var colors = ['#df2b7b','#5848e8','#35a5a0','#ed9b40','#7296d8','#a87bd4','#6ab482','#ea756d'];
+  var dataMin = '', dataMax = '', preset = 'all', visibleRows = [], dayRows = new Map();
+  var ledgerLimit = 30, loading = false, hasLoaded = false, lastSynced = null, detailDay = '';
+  var mobileLayout = window.matchMedia('(max-width: 720px)');
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var dateFormatter = new Intl.DateTimeFormat('en-IN', {day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC'});
+  var moneyFormatter = new Intl.NumberFormat('en-IN', {maximumFractionDigits: 2});
+  var timeFormatter = new Intl.DateTimeFormat('en-IN', {hour: 'numeric', minute: '2-digit'});
+
+  function el(id) { return document.getElementById(id); }
+  function money(n) { return '₹' + moneyFormatter.format(Number(n || 0)); }
+  function clean(s) { return String(s || 'Other').replace(/[\p{Extended_Pictographic}\uFE0F]/gu, '').trim() || 'Other'; }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+      return {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c];
+    });
+  }
+  function parseDay(iso) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return NaN;
+    var value = Date.parse(iso + 'T00:00:00Z');
+    return Number.isFinite(value) && new Date(value).toISOString().slice(0, 10) === iso ? value : NaN;
+  }
+  function dayLabel(iso) { return Number.isFinite(parseDay(iso)) ? dateFormatter.format(new Date(parseDay(iso))) : iso; }
+  function groups(rows, key) {
+    var totals = new Map();
+    rows.forEach(function(x) { var k = x[key] || 'Not specified'; totals.set(k, (totals.get(k) || 0) + x.amount); });
+    return Array.from(totals).sort(function(a, b) { return b[1] - a[1]; });
+  }
+  function counts(rows, key) {
+    var result = new Map();
+    rows.forEach(function(x) { var k = x[key] || 'Not specified'; result.set(k, (result.get(k) || 0) + 1); });
+    return result;
+  }
+  function selectedDayCount() {
+    var start = parseDay(el('from').value || dataMin), end = parseDay(el('to').value || dataMax);
+    // UTC midnight counts calendar days inclusively, even across daylight-saving changes.
+    return Number.isFinite(start) && Number.isFinite(end) && end >= start ? Math.floor((end - start) / 86400000) + 1 : 0;
+  }
+  function filtered() {
+    var a = el('from').value, b = el('to').value, q = el('search').value.trim().toLowerCase();
+    var category = el('cat').value, payment = el('method').value;
+    return expenses.filter(function(x) {
+      return (!a || x.isoDate >= a) && (!b || x.isoDate <= b) && (!category || x.category === category) &&
+        (!payment || x.payment === payment) && (!q || (x.category + ' ' + x.remarks + ' ' + x.payment + ' ' + x.device).toLowerCase().includes(q));
+    });
+  }
+  function presetBounds(name, now) {
+    now = now || new Date();
+    // Use the phone's local calendar date; do date arithmetic in UTC to avoid DST offsets.
+    var today = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+    var end = today.toISOString().slice(0, 10), start = end;
+    if (name === 'all') return [dataMin, dataMax];
+    if (name === 'week') start = new Date(today.getTime() - 6 * 86400000).toISOString().slice(0, 10);
+    if (name === 'month') start = end.slice(0, 8) + '01';
+    return [start, end];
+  }
+  function applyPreset(name) {
+    preset = name;
+    var bounds = presetBounds(name);
+    el('from').value = bounds[0]; el('to').value = bounds[1];
+    ledgerLimit = 30;
+    render();
+    el('timeline').scrollLeft = el('timeline').scrollWidth;
+  }
+  function resetFilters() {
+    ['search', 'cat', 'method'].forEach(function(id) { el(id).value = ''; });
+    applyPreset('all');
+  }
+  function updateFilters() {
+    document.querySelectorAll('[data-preset]').forEach(function(button) {
+      button.setAttribute('aria-pressed', String(button.dataset.preset === preset));
+    });
+    var labels = [];
+    if (preset !== 'all') labels.push({today: 'Today', week: 'Last 7 days', month: 'This month', custom: 'Custom dates'}[preset]);
+    if (el('search').value.trim()) labels.push('Search: ' + el('search').value.trim());
+    if (el('cat').value) labels.push(clean(el('cat').value));
+    if (el('method').value) labels.push(clean(el('method').value));
+    el('activeFilters').hidden = labels.length === 0;
+    el('filterSummary').textContent = labels.join(' · ');
+    var reversed = el('from').value && el('to').value && el('from').value > el('to').value;
+    el('dateError').hidden = !reversed;
+    el('dateError').textContent = reversed ? 'Choose an end date on or after the start date.' : '';
+    el('to').setAttribute('aria-invalid', String(Boolean(reversed)));
+  }
+  function render() {
+    visibleRows = filtered();
+    var rows = visibleRows, total = rows.reduce(function(s, x) { return s + x.amount; }, 0);
+    var cats = groups(rows, 'category'), pays = groups(rows, 'payment'), devices = groups(rows, 'device');
+    var top = cats[0], payCounts = counts(rows, 'payment');
+    var primary = Array.from(payCounts).sort(function(a, b) { return b[1] - a[1]; })[0];
+    var primaryAmount = primary ? (pays.find(function(x) { return x[0] === primary[0]; }) || [null, 0])[1] : 0;
+    var days = selectedDayCount();
+    el('total').textContent = hasLoaded ? money(total) : '—';
+    el('avg').textContent = hasLoaded && days ? money(total / days) : '—';
+    el('avgDays').textContent = days ? 'Across ' + days + ' calendar day' + (days === 1 ? '' : 's') + ' · includes ₹0 days' : 'Choose a valid date range';
+    el('count').textContent = hasLoaded ? rows.length + ' transaction' + (rows.length === 1 ? '' : 's') : 'Waiting for data';
+    el('top').textContent = top ? clean(top[0]) : '—';
+    el('topAmt').textContent = top ? money(top[1]) + ' · ' + Math.round(top[1] / (total || 1) * 100) + '%' : '₹0 · 0%';
+    el('pay').textContent = primary ? clean(primary[0]) : '—';
+    el('payAmt').textContent = primary ? money(primaryAmount) + ' · ' + Math.round(primary[1] / (rows.length || 1) * 100) + '%' : '₹0 · 0%';
+    el('range').textContent = hasLoaded ? (rows.length ? rows.length + ' matching expense' + (rows.length === 1 ? '' : 's') : 'No matching expenses') : 'Waiting for data';
+    updateFilters();
+    drawCategory(cats, total);
+    drawTimeline(rows);
+    drawDist('payments', pays, rows, 'payment');
+    drawDist('devices', devices, rows, 'device');
+    renderLedger();
+  }
+
+  function drawCategory(cats,total){var root=document.getElementById('category');if(!cats.length){root.innerHTML='<div class="empty">No expenses in this range</div>';return}if(mode==='donut'){var pos=0,stops=cats.map(function(x,i){var s=pos;pos+=x[1]/total*100;return colors[i%colors.length]+' '+s+'% '+pos+'%'}).join(',');root.innerHTML='<div class="donut" style="background:conic-gradient('+stops+')"><div class="center"><small>TOTAL</small><b>'+money(total)+'</b><small>'+cats.length+' categories</small></div></div><div class="legend">'+cats.map(function(x,i){return '<span><i class="dot" style="background:'+colors[i%colors.length]+'"></i>'+esc(clean(x[0]))+' · '+money(x[1])+'</span>'}).join('')+'</div>'}else root.innerHTML='<div style="width:100%">'+cats.map(function(x,i){return '<div class="item"><div class="statline"><b>'+esc(clean(x[0]))+'</b><b>'+money(x[1])+'</b></div><div class="meter"><i style="width:'+x[1]/total*100+'%;background:'+colors[i%colors.length]+'"></i></div></div>'}).join('')+'</div>'}
+
+  function changeCategoryView(nextMode) {
+    mode = nextMode;
+    ['donut', 'rank'].forEach(function(name) {
+      el(name + 'Btn').classList.toggle('on', mode === name);
+      el(name + 'Btn').setAttribute('aria-pressed', String(mode === name));
+    });
+    drawCategory(groups(visibleRows, 'category'), visibleRows.reduce(function(sum, row) { return sum + row.amount; }, 0));
+    if (!reducedMotion.matches && el('category').animate) el('category').animate([{opacity: .65}, {opacity: 1}], {duration: 160});
+  }
+  function drawTimeline(rows) {
+    dayRows = new Map();
+    rows.forEach(function(row) { if (!dayRows.has(row.isoDate)) dayRows.set(row.isoDate, []); dayRows.get(row.isoDate).push(row); });
+    var keys = Array.from(dayRows.keys()).sort();
+    var totals = keys.map(function(key) { return dayRows.get(key).reduce(function(sum, row) { return sum + row.amount; }, 0); });
+    var max = Math.max.apply(null, totals.concat([1]));
+    el('days').textContent = keys.length + ' active day' + (keys.length === 1 ? '' : 's');
+    el('timeline').innerHTML = keys.length ? keys.map(function(key, i) {
+      return '<button class="timeline-day" type="button" data-day="' + key + '" aria-label="' + esc(dayLabel(key) + ': ' + money(totals[i]) + '. View expenses') + '"><span class="bar" aria-hidden="true" style="height:' + Math.max(5, totals[i] / max * 140) + 'px"></span><small>' + key.slice(8) + '/' + key.slice(5, 7) + '</small></button>';
+    }).join('') : '<div class="empty">No daily spend in this range</div>';
+    el('timelineHint').textContent = keys.length > 6 ? 'Swipe sideways for more days · tap any bar for details' : (keys.length ? 'Tap any bar for that day’s expenses' : 'Try another date range');
+  }
+  function drawDist(id, items, rows, key) {
+    var itemCounts = counts(rows, key);
+    el(id).innerHTML = items.length ? items.map(function(x) {
+      var n = itemCounts.get(x[0]) || 0, share = n / (rows.length || 1) * 100;
+      return '<div class="item"><div class="statline"><b>' + esc(clean(x[0])) + '</b><b>' + money(x[1]) + '</b></div><small>' + n + ' transaction' + (n === 1 ? '' : 's') + ' · ' + Math.round(share) + '% volume</small><div class="meter"><i style="width:' + share + '%"></i></div></div>';
+    }).join('') : '<div class="empty">No data in range</div>';
+  }
+  function transactionCard(row) {
+    return '<button class="transaction" type="button" data-entry="' + row._index + '" aria-label="' + esc('View ' + clean(row.category) + ', ' + money(row.amount) + ', ' + dayLabel(row.isoDate)) + '"><span class="transaction-main"><span class="transaction-title">' + esc(row.remarks || clean(row.category)) + '</span><span class="transaction-meta">' + esc(clean(row.category) + ' · ' + clean(row.payment)) + '</span></span><span class="transaction-value"><span class="amount">' + money(row.amount) + '</span><span class="chevron" aria-hidden="true">›</span></span></button>';
+  }
+  function renderLedger() {
+    var shown = visibleRows.slice(0, ledgerLimit), empty = '<div class="empty">No matching expenses. Try another date range or reset your filters.</div>';
+    el('entries').textContent = 'Showing ' + shown.length + ' of ' + visibleRows.length + ' matching entries';
+    // Only build the visible layout; long histories render in small, local batches.
+    if (mobileLayout.matches) {
+      el('rows').innerHTML = '';
+      var previousDay = '';
+      el('transactionList').innerHTML = shown.length ? shown.map(function(row) {
+        var label = previousDay !== row.isoDate ? '<h3 class="date-group">' + esc(dayLabel(row.isoDate)) + '</h3>' : '';
+        previousDay = row.isoDate;
+        return label + transactionCard(row);
+      }).join('') : empty;
+    } else {
+      el('transactionList').innerHTML = '';
+      el('rows').innerHTML = shown.length ? shown.map(function(row) {
+        return '<tr><td>' + esc(dayLabel(row.isoDate)) + '<br><span class="sub">' + esc(row.time) + '</span></td><td><span class="tag">' + esc(clean(row.category)) + '</span></td><td><button class="note-link" type="button" data-entry="' + row._index + '">' + esc(row.remarks || 'View details') + '</button></td><td>' + esc(clean(row.payment)) + '</td><td>' + esc(row.device || '—') + '</td><td class="amount"><b>' + money(row.amount) + '</b></td></tr>';
+      }).join('') : '<tr><td colspan="6">' + empty + '</td></tr>';
+    }
+    var remaining = visibleRows.length - shown.length;
+    el('showMore').hidden = remaining <= 0;
+    el('showMore').textContent = 'Show ' + Math.min(30, remaining) + ' more expenses';
+  }
+  function openSheet(title, html, back) {
+    el('detailTitle').textContent = title;
+    el('detailBody').innerHTML = html;
+    el('detailBack').hidden = !back;
+    if (!el('detailDialog').open) {
+      document.body.style.overflow = 'hidden';
+      el('detailDialog').showModal();
+    }
+    el('detailClose').focus();
+    el('detailDialog').scrollTop = 0;
+  }
+  function showDay(iso) {
+    var rows = dayRows.get(iso);
+    if (!rows || !rows.length) return;
+    detailDay = iso;
+    var total = rows.reduce(function(sum, row) { return sum + row.amount; }, 0);
+    openSheet(dayLabel(iso), '<div class="detail-amount">' + money(total) + '</div><div class="detail-sub">' + rows.length + ' expense' + (rows.length === 1 ? '' : 's') + ' · within your current filters</div><div class="transaction-list">' + rows.map(transactionCard).join('') + '</div>', false);
+  }
+  function showExpense(index, fromDay) {
+    var row = expenses.find(function(x) { return x._index === Number(index); });
+    if (!row) return;
+    if (!fromDay) detailDay = '';
+    var fields = [['Date', dayLabel(row.isoDate)], ['Time', row.time || '—'], ['Category', clean(row.category)], ['Payment', clean(row.payment)], ['Device', row.device || '—'], ['Note', row.remarks || 'No note added']];
+    openSheet('Expense details', '<div class="detail-amount">' + money(row.amount) + '</div><div class="detail-sub">' + esc(clean(row.category)) + '</div><dl class="detail-fields">' + fields.map(function(field) { return '<div><dt>' + field[0] + '</dt><dd>' + esc(field[1]) + '</dd></div>'; }).join('') + '</dl>', Boolean(fromDay && detailDay));
+  }
+  function updateSelect(id, field, label) {
+    var selected = el(id).value, values = Array.from(new Set(expenses.map(function(row) { return row[field]; })));
+    // Keep the user's filter even if a refreshed dataset no longer contains that value.
+    if (selected && !values.includes(selected)) values.push(selected);
+    values.sort(function(a, b) { return clean(a).localeCompare(clean(b)); });
+    el(id).innerHTML = '<option value="">' + label + '</option>' + values.map(function(value) { return '<option value="' + esc(value) + '">' + esc(clean(value)) + '</option>'; }).join('');
+    el(id).value = selected;
+  }
+  function setData(data) {
+    if (!data || !Array.isArray(data.expenses) || data.expenses.some(function(row) { return !row || !Number.isFinite(parseDay(row.isoDate)) || !Number.isFinite(Number(row.amount)); })) throw new Error('Invalid expense data');
+    var next = data.expenses.map(function(row, index) {
+      return {isoDate: row.isoDate, time: String(row.time || ''), category: String(row.category || 'Other'), amount: Number(row.amount), payment: String(row.payment || 'Not specified'), remarks: String(row.remarks || ''), device: String(row.device || 'Not specified'), _index: index};
+    });
+    next.sort(function(a, b) { return (b.isoDate + b.time).localeCompare(a.isoDate + a.time); });
+    expenses = next;
+    dataMin = next.length ? next[next.length - 1].isoDate : '';
+    dataMax = next.length ? next[0].isoDate : '';
+    if (preset !== 'custom') {
+      var bounds = presetBounds(preset);
+      el('from').value = bounds[0]; el('to').value = bounds[1];
+    }
+    updateSelect('cat', 'category', 'All Categories');
+    updateSelect('method', 'payment', 'All Payment Modes');
+    if (el('detailDialog').open) el('detailDialog').close();
+    hasLoaded = true;
+    render();
+  }
+  function syncMessage(message, state) {
+    el('syncStatus').textContent = message;
+    el('syncLine').dataset.state = state;
+  }
+  function finishRefresh() {
+    loading = false;
+    el('refresh').disabled = false;
+    el('refresh').setAttribute('aria-busy', 'false');
+    el('refreshLabel').textContent = 'Refresh data';
+  }
+  function refreshFailed() {
+    finishRefresh();
+    syncMessage(hasLoaded ? 'Couldn’t refresh · showing data from ' + timeFormatter.format(lastSynced) + '. Tap Refresh to retry.' : 'Couldn’t load your expenses. Tap Refresh to retry.', 'error');
+  }
+  function refreshData() {
+    if (loading) return;
+    var api = window.google && window.google.script && window.google.script.run;
+    if (!api) {
+      syncMessage('Local preview · open your deployed app to load spreadsheet data.', 'preview');
+      return;
+    }
+    loading = true;
+    el('refresh').disabled = true;
+    el('refresh').setAttribute('aria-busy', 'true');
+    el('refreshLabel').textContent = hasLoaded ? 'Refreshing…' : 'Loading…';
+    syncMessage(hasLoaded ? 'Refreshing your expenses…' : 'Connecting to your spreadsheet…', 'loading');
+    // One read per refresh. Filters, charts, and detail panels never contact the server.
+    try {
+      api.withSuccessHandler(function(data) {
+        var firstLoad = !hasLoaded;
+        try { setData(data); } catch (error) { refreshFailed(); return; }
+        lastSynced = new Date();
+        finishRefresh();
+        syncMessage('Last updated ' + timeFormatter.format(lastSynced), 'ready');
+        if (firstLoad) el('timeline').scrollLeft = el('timeline').scrollWidth;
+      }).withFailureHandler(refreshFailed).getDashboardData();
+    } catch (error) { refreshFailed(); }
+  }
+
+  document.querySelectorAll('[data-preset]').forEach(function(button) {
+    button.addEventListener('click', function() { applyPreset(button.dataset.preset); });
+  });
+  ['from', 'to', 'search', 'cat', 'method'].forEach(function(id) {
+    el(id).addEventListener(id === 'search' ? 'input' : 'change', function() {
+      if (id === 'from' || id === 'to') preset = 'custom';
+      ledgerLimit = 30;
+      render();
+    });
+  });
+  el('resetFilters').addEventListener('click', resetFilters);
+  el('refresh').addEventListener('click', refreshData);
+  el('donutBtn').addEventListener('click', function() { changeCategoryView('donut'); });
+  el('rankBtn').addEventListener('click', function() { changeCategoryView('rank'); });
+  el('showMore').addEventListener('click', function() { ledgerLimit += 30; renderLedger(); });
+  mobileLayout.addEventListener('change', renderLedger);
+  el('timeline').addEventListener('click', function(event) {
+    var button = event.target.closest('[data-day]');
+    if (button) showDay(button.dataset.day);
+  });
+  el('ledger').addEventListener('click', function(event) {
+    var button = event.target.closest('[data-entry]');
+    if (button) showExpense(button.dataset.entry, false);
+  });
+  el('detailBody').addEventListener('click', function(event) {
+    var button = event.target.closest('[data-entry]');
+    if (button) showExpense(button.dataset.entry, true);
+    if (event.target.closest('[data-close]')) el('detailDialog').close();
+  });
+  el('detailBack').addEventListener('click', function() { showDay(detailDay); });
+  el('detailClose').addEventListener('click', function() { el('detailDialog').close(); });
+  el('detailDialog').addEventListener('click', function(event) { if (event.target === el('detailDialog')) el('detailDialog').close(); });
+  el('detailDialog').addEventListener('close', function() { document.body.style.overflow = ''; detailDay = ''; });
+  el('addExpense').addEventListener('click', function() {
+    detailDay = '';
+    openSheet('Add an expense', '<p>Run your existing iPhone Shortcut to add an expense, then tap <strong>Refresh data</strong> to see it here.</p><button class="btn sheet-footer" type="button" data-close>Got it</button>', false);
+  });
+  render();
+  refreshData();
+</script>
+</body>
 </html>
